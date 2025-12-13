@@ -1,4 +1,39 @@
-﻿@page "/"
+﻿@inject NavigationManager NavManager
+@page "/"
+
+<style>
+    /* 1. 애니메이션 정의: 둥둥 떠다니는 무빙 */
+    @@keyframes floating-wobble {
+        0% {
+            transform: scale(1.05) rotate(-3deg) translateX(-5px);
+        }
+
+        50% {
+            transform: scale(1.05) rotate(3deg) translateX(5px);
+        }
+
+        100% {
+            transform: scale(1.05) rotate(-3deg) translateX(-5px);
+        }
+    }
+
+    /* 2. 평소 상태 (부드러운 전환을 위해 transition 유지) */
+    .github-button {
+        transition: all 0.3s ease-in-out;
+    }
+
+        /* 3. 마우스 올렸을 때 효과 */
+        .github-button:hover {
+            /* 색상과 그림자는 즉시 적용 */
+            box-shadow: 0 0 50px rgba(57, 255, 20, 0.5);
+            background-color: rgba(57, 255, 20, 0.25);
+            /* 아까 정의한 'floating-wobble' 애니메이션 실행 */
+            /* 3s: 3초 동안 천천히 (숫자가 클수록 더 느려짐) */
+            /* infinite: 마우스 올리고 있는 동안 무한 반복 */
+            /* alternate: 왔다 갔다 자연스럽게 연결 */
+            animation: floating-wobble 3s ease-in-out infinite alternate;
+        }
+</style>
 
 <PageTitle>ReltyWorks - Home</PageTitle>
 
@@ -82,9 +117,15 @@
 <MudGrid Class="mb-16">
     <MudItem xs="12" md="6">
         <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ GITHUB ]</MudText>
-        <MudPaper Class="d-flex flex-column align-center justify-center py-8" Outlined="true" Style="border-color:#39ff14; cursor:pointer;" @onclick="@(() => NavigateToGithub())">
+
+        <MudPaper Class="d-flex flex-column align-center justify-center py-8 github-button"
+                  Outlined="true"
+                  Style="border-color:#39ff14; cursor:pointer;"
+                  @onclick="@(() => NavigateToGithub())">
+
             <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Large" Color="Color.Primary" Style="font-size: 5rem;" />
             <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-4">VISIT MY GITHUB</MudText>
+
         </MudPaper>
     </MudItem>
 
@@ -102,11 +143,11 @@
 </MudGrid>
 
 @code {
-    [Inject] NavigationManager NavManager { get; set; }
+    [Inject] NavigationManager NavMag { get; set; }
 
     void NavigateToGithub()
     {
         // 깃허브 주소 변경 필요
-        NavManager.NavigateTo("https://github.com/ReltyWorks", true);
+        NavMag.NavigateTo("https://github.com/ReltyWorks", true);
     }
 }
