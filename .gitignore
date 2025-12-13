@@ -1,0 +1,31 @@
+## Visual Studio 공통 무시 파일
+.vs/
+.vscode/
+*.user
+*.suo
+*.userprefs
+
+## 빌드 결과물 (절대 올리면 안 됨)
+[Bb]in/
+[Oo]bj/
+/release/
+
+## 로그 파일 등
+*.log
+
+## 윈도우 썸네일 파일
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## 맥(Mac) 쓰레기 파일
+.DS_Store
+
+## (중요) 솔루션이랑 프로젝트 파일은 올라가야 함!
+# *.sln
+# *.csproj
+# 주석(#)이 달려있으니 무시하지 않고 올라간다는 뜻임. 건드리지 마!
+
+## Blazor/Web 관련 임시 파일
+wwwroot/_framework/
+wwwroot/_bin/

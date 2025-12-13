@@ -1,0 +1,84 @@
+﻿@page "/"
+
+<MudContainer MaxWidth="MaxWidth.Large">
+    <MudPaper Elevation="3" Class="pa-8 my-4" Style="background-color: #27272f;">
+        <MudGrid>
+            <MudItem xs="12" sm="8">
+                <MudText Typo="Typo.h3" GutterBottom="true" Color="Color.Primary">
+                    <b>안녕하세요, C# 개발자 Relty입니다.</b>
+                </MudText>
+                <MudText Typo="Typo.body1" Class="mb-4">
+                    저는 유니티(Unity) 엔진과 C#을 주력으로 사용하는 클라이언트 개발자입니다.<br />
+                    단순한 구현을 넘어, 효율적인 구조와 네트워크 아키텍처에 관심이 많습니다.
+                </MudText>
+                <MudStack Row="true" Spacing="2">
+                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">Unity</MudChip>
+                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">C#</MudChip>
+                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">ASP.NET Core</MudChip>
+                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">Gen AI</MudChip>
+                </MudStack>
+            </MudItem>
+            <MudItem xs="12" sm="4" Class="d-flex justify-center align-center">
+                <MudAvatar Style="height:150px; width:150px; font-size:4rem;" Color="Color.Primary" Variant="Variant.Outlined">
+                    R
+                </MudAvatar>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+
+    <MudDivider Class="my-8" />
+
+    <MudText Typo="Typo.h4" Class="mb-4"><b>Projects</b></MudText>
+
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4">
+                <MudCardMedia Image="images/profile.jpg" Height="200" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">More Easy Unity</MudText>
+                    <MudText Typo="Typo.body2" Class="mt-2">
+                        유니티 에셋 스토어 출시를 목표로 개발 중인 UI 프레임워크입니다. CSV 기반으로 인벤토리, 미니맵 등을 쉽게 설정할 수 있습니다.
+                    </MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">상세 보기</MudButton>
+                    <MudButton Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Download" HREF="files/AMDoc.pptx" Target="_top">
+                        기획서(PPT)
+                    </MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4">
+                <MudCardMedia Image="https://dummyimage.com/600x400/333/fff&text=RPG+Image" Height="200" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">Data City MORPG</MudText>
+                    <MudText Typo="Typo.body2" Class="mt-2">
+                        2033년 데이터 센터 도시를 배경으로 한 MORPG입니다. 유니티 기본 템플릿을 확장하여 네트워크 동기화를 구현했습니다.
+                    </MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">상세 보기</MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Secondary">GitHub</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Elevation="4">
+                <MudCardMedia Image="https://dummyimage.com/600x400/444/fff&text=AI+Gomoku" Height="200" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">Generative AI 오목</MudText>
+                    <MudText Typo="Typo.body2" Class="mt-2">
+                        생성형 AI와 대결할 수 있는 C# 콘솔 기반 오목 게임입니다. AI의 패턴 학습을 테스트했습니다.
+                    </MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">코드 보기</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+</MudContainer>
