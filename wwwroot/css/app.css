@@ -1,0 +1,9 @@
+﻿/* 모든 태그에 프리텐다드 폰트 강제 적용 */
+* {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
+}
+
+/* 혹시 몰라서 MudBlazor 전용 클래스에도 한 번 더 강조 */
+.mud-typography, .mud-button-root, .mud-input-control {
+    font-family: "Pretendard", sans-serif !important;
+}

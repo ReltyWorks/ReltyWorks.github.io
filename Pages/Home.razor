@@ -1,97 +1,112 @@
 ﻿@page "/"
 
-<PageTitle>Portfolio</PageTitle>
+<PageTitle>ReltyWorks - Home</PageTitle>
 
-<!-- HOME 섹션 -->
-<section id="home" class="section">
-    <h1 class="home-title">ReltyWorks</h1>
-    <p class="home-subtitle">> UNITY & C# DEVELOPER_</p>
-    <div class="home-description">
-        <p>안녕하세요! 저는 Unity와 C# 개발자입니다.</p>
-        <p>게임 개발과 프로그래밍에 열정을 가지고 있으며,</p>
-        <p>끊임없이 배우고 성장하는 개발자가 되고자 합니다.</p>
-    </div>
-</section>
+<MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Spacing="2" Class="my-16">
+    <MudText Typo="Typo.h2" Color="Color.Primary" Style="font-weight:bold; text-shadow: 0 0 20px #39ff14;">
+        ReltyWorks
+    </MudText>
+    <MudText Typo="Typo.h5" Color="Color.Primary" Class="mb-4">
+        UNITY & C# DEVELOPER
+    </MudText>
+    <MudText Typo="Typo.body1" Align="Align.Center">
+        안녕하세요! 저는 Unity와 C# 개발자입니다.<br />
+        게임 개발과 프로그래밍에 열정을 가지고 있으며,<br />
+        끊임없이 배우고 성장하는 개발자가 되고자 합니다.
+    </MudText>
+</MudStack>
 
-<!-- KEY PORTFOLIO 섹션 -->
-<section id="keyportfolio" class="section">
-    <h2 class="section-title">[ KEY PORTFOLIO ]</h2>
+<MudDivider Class="my-12" />
 
-    <div class="project-content">
-        <h3 style="color: var(--pipboy-green); font-size: 2.5em; margin-bottom: 20px; text-align: center;">
-            ⭐ 메인 프로젝트 제목 ⭐
-        </h3>
+<MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-8">
+    [ KEY PORTFOLIO ]
+</MudText>
 
-        <div style="text-align: center; margin-bottom: 30px;">
-            <div style="width: 100%; height: 400px; background-color: rgba(57, 255, 20, 0.1); border: 2px solid var(--pipboy-green); display: flex; align-items: center; justify-content: center; font-size: 3em; margin-bottom: 20px;">
+<MudCard Outlined="true" Class="pa-4" Style="border: 2px solid #39ff14; background-color: rgba(57, 255, 20, 0.05);">
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center">⭐ 메인 프로젝트 제목 ⭐</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudStack AlignItems="AlignItems.Center" Class="mb-6">
+            <MudAvatar Size="Size.Large" Color="Color.Primary" Variant="Variant.Outlined" Style="width:100px; height:100px; font-size:3rem;">
                 🎮
-            </div>
-        </div>
+            </MudAvatar>
+        </MudStack>
 
-        <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
-        <p><strong>개발 도구:</strong> Unity 2022, C#, Visual Studio</p>
-        <p><strong>사용 기술:</strong> Unity, C#, 디자인 패턴</p>
-        <p><strong>팀 구성:</strong> 1인 개발 (또는 팀 구성)</p>
+        <MudGrid>
+            <MudItem xs="12" md="6">
+                <MudList T="string" Dense="true">
+                    <MudListItem Icon="@Icons.Material.Filled.CalendarToday" IconColor="Color.Primary">
+                        <strong>개발 기간:</strong> 2024.XX ~ 2024.XX
+                    </MudListItem>
+                    <MudListItem Icon="@Icons.Material.Filled.Computer" IconColor="Color.Primary">
+                        <strong>개발 도구:</strong> Unity 2022, C#, VS
+                    </MudListItem>
+                </MudList>
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudList T="string" Dense="true">
+                    <MudListItem Icon="@Icons.Material.Filled.Code" IconColor="Color.Primary">
+                        <strong>사용 기술:</strong> Unity, C#, Design Patterns
+                    </MudListItem>
+                    <MudListItem Icon="@Icons.Material.Filled.Person" IconColor="Color.Primary">
+                        <strong>팀 구성:</strong> 1인 개발
+                    </MudListItem>
+                </MudList>
+            </MudItem>
+        </MudGrid>
 
-        <h4 style="color: var(--pipboy-green); margin-top: 30px; font-size: 1.5em;">📋 프로젝트 개요</h4>
-        <p style="line-height: 1.8; font-size: 1.1em;">
-            이 프로젝트는 [프로젝트 설명]...
-            여기에 가장 자랑하고 싶은 메인 프로젝트의 상세한 설명을 작성합니다.
-        </p>
+        <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-6 mb-2">📋 프로젝트 개요</MudText>
+        <MudText Typo="Typo.body1">
+            이 프로젝트는 [프로젝트 설명]... 여기에 가장 자랑하고 싶은 메인 프로젝트의 상세한 설명을 작성합니다.
+        </MudText>
 
-        <h4 style="color: var(--pipboy-green); margin-top: 30px; font-size: 1.5em;">⚙️ 주요 기능</h4>
-        <p style="margin: 10px 0;">• <strong>기능 1:</strong> 상세 설명</p>
-        <p style="margin: 10px 0;">• <strong>기능 2:</strong> 상세 설명</p>
-        <p style="margin: 10px 0;">• <strong>기능 3:</strong> 상세 설명</p>
-        <p style="margin: 10px 0;">• <strong>기능 4:</strong> 상세 설명</p>
-
-        <h4 style="color: var(--pipboy-green); margin-top: 30px; font-size: 1.5em;">💡 기술적 도전과 해결</h4>
-        <p style="line-height: 1.8; font-size: 1.1em;">
-            [어떤 기술적 어려움이 있었고, 어떻게 해결했는지]
-        </p>
-
-        <h4 style="color: var(--pipboy-green); margin-top: 30px; font-size: 1.5em;">📚 배운 점 & 성장</h4>
-        <p style="line-height: 1.8; font-size: 1.1em;">
+        <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-6 mb-2">💡 배운 점 & 성장</MudText>
+        <MudText Typo="Typo.body1">
             이 프로젝트를 통해 배운 점들을 작성합니다.
-        </p>
+        </MudText>
+    </MudCardContent>
 
-        <div style="text-align: center; margin-top: 40px;">
-            <a href="/portfolios" style="display: inline-block; padding: 15px 40px; border: 3px solid var(--pipboy-green); color: var(--pipboy-green); text-decoration: none; font-size: 1.2em; transition: all 0.3s;">
-                > 다른 프로젝트 보기
-            </a>
-        </div>
-    </div>
-</section>
+    <MudCardActions Class="d-flex justify-center my-4">
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" Href="/portfolios">
+            &gt; 다른 프로젝트 보기
+        </MudButton>
+    </MudCardActions>
+</MudCard>
 
-<!-- GITHUB 섹션 -->
-<section id="github" class="section">
-    <h2 class="section-title">[ GITHUB ]</h2>
+<MudDivider Class="my-12" />
 
-    <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" class="github-button">
-        <div class="github-icon">🐱</div>
-        <div class="github-text">Visit My GitHub</div>
-    </a>
+<MudGrid Class="mb-16">
+    <MudItem xs="12" md="6">
+        <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ GITHUB ]</MudText>
+        <MudPaper Class="d-flex flex-column align-center justify-center py-8" Outlined="true" Style="border-color:#39ff14; cursor:pointer;" @onclick="@(() => NavigateToGithub())">
+            <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Large" Color="Color.Primary" Style="font-size: 5rem;" />
+            <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-4">VISIT MY GITHUB</MudText>
+        </MudPaper>
+    </MudItem>
 
-    <p style="margin-top: 30px; font-size: 1.2em; opacity: 0.7;">
-        > 더 많은 프로젝트를 확인하세요!
-    </p>
-</section>
+    <MudItem xs="12" md="6">
+        <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ CONTACT ]</MudText>
+        <MudList T="string">
+            <MudListItem Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary">
+                your.email@example.com
+            </MudListItem>
+            <MudListItem Icon="@Icons.Material.Filled.Phone" IconColor="Color.Primary">
+                010-XXXX-XXXX
+            </MudListItem>
+        </MudList>
+    </MudItem>
+</MudGrid>
 
-<!-- CONTACT 섹션 -->
-<section id="contact" class="section">
-    <h2 class="section-title">[ CONTACT ]</h2>
+@code {
+    [Inject] NavigationManager NavManager { get; set; }
 
-    <div class="contact-info">
-        <div class="contact-item">
-            📧 Email: your.email@example.com
-        </div>
-
-        <div class="contact-item">
-            📱 Phone: 010-XXXX-XXXX
-        </div>
-
-        <div class="contact-item">
-            💼 LinkedIn: linkedin.com/in/yourprofile
-        </div>
-    </div>
-</section>
+    void NavigateToGithub()
+    {
+        // 깃허브 주소 변경 필요
+        NavManager.NavigateTo("https://github.com/ReltyWorks", true);
+    }
+}

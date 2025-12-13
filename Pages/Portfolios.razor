@@ -2,132 +2,55 @@
 
 <PageTitle>All Portfolios</PageTitle>
 
-<div style="padding-top: 80px; min-height: 100vh;">
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-8">
+    <MudText Typo="Typo.h3" Color="Color.Primary" Align="Align.Center" Class="mb-12">
+        [ ALL PORTFOLIOS ]
+    </MudText>
 
-    <!-- 포트폴리오 갤러리 -->
-    <section class="section">
-        <h2 class="section-title">[ ALL PORTFOLIOS ]</h2>
+    <MudGrid>
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Outlined="true" Class="mud-theme-card-hover" Style="border-color: #39ff14;">
+                <MudCardMedia Image="https://dummyimage.com/600x400/000/39ff14&text=Project+1" Height="200" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h5" Color="Color.Primary">Project 1</MudText>
+                    <MudText Typo="Typo.body2" Class="mt-2">Unity로 제작한 3D 게임 프로젝트입니다.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">자세히 보기</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
 
-        <div class="portfolio-gallery">
-            <!-- 프로젝트 카드 1 -->
-            <a href="#project1" class="portfolio-card">
-                <div class="portfolio-card-image">
-                    🎮
-                </div>
-                <h3 class="portfolio-card-title">Project 1</h3>
-                <p class="portfolio-card-description">
-                    프로젝트 1에 대한 간단한 설명입니다.
-                    Unity로 제작한 3D 게임 프로젝트입니다.
-                </p>
-            </a>
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Outlined="true" Style="border-color: #39ff14;">
+                <MudCardMedia Image="https://dummyimage.com/600x400/000/39ff14&text=Project+2" Height="200" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h5" Color="Color.Primary">Project 2</MudText>
+                    <MudText Typo="Typo.body2" Class="mt-2">C#과 Unity를 활용한 시뮬레이션 게임입니다.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">자세히 보기</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
 
-            <!-- 프로젝트 카드 2 -->
-            <a href="#project2" class="portfolio-card">
-                <div class="portfolio-card-image">
-                    🕹️
-                </div>
-                <h3 class="portfolio-card-title">Project 2</h3>
-                <p class="portfolio-card-description">
-                    프로젝트 2에 대한 간단한 설명입니다.
-                    C#과 Unity를 활용한 시뮬레이션 게임입니다.
-                </p>
-            </a>
+        <MudItem xs="12" sm="6" md="4">
+            <MudCard Outlined="true" Style="border-color: #39ff14;">
+                <MudCardMedia Image="https://dummyimage.com/600x400/000/39ff14&text=Project+3" Height="200" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h5" Color="Color.Primary">Project 3</MudText>
+                    <MudText Typo="Typo.body2" Class="mt-2">2D 플랫포머 액션 게임 프로젝트입니다.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">자세히 보기</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
 
-            <!-- 프로젝트 카드 3 -->
-            <a href="#project3" class="portfolio-card">
-                <div class="portfolio-card-image">
-                    👾
-                </div>
-                <h3 class="portfolio-card-title">Project 3</h3>
-                <p class="portfolio-card-description">
-                    프로젝트 3에 대한 간단한 설명입니다.
-                    2D 플랫포머 액션 게임 프로젝트입니다.
-                </p>
-            </a>
-
-            <!-- 프로젝트 카드 4 -->
-            <a href="#project4" class="portfolio-card">
-                <div class="portfolio-card-image">
-                    🎯
-                </div>
-                <h3 class="portfolio-card-title">Project 4</h3>
-                <p class="portfolio-card-description">
-                    프로젝트 4에 대한 간단한 설명입니다.
-                    타워 디펜스 게임 프로젝트입니다.
-                </p>
-            </a>
-        </div>
-    </section>
-
-    <!-- PROJECT 1 상세 -->
-    <section id="project1" class="project-section">
-        <div class="project-content">
-            <h2 class="section-title">PROJECT 1</h2>
-            <h3 style="color: var(--pipboy-green); margin-bottom: 20px;">프로젝트명: 게임 타이틀</h3>
-
-            <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
-            <p><strong>개발 도구:</strong> Unity 2022, C#, Visual Studio</p>
-            <p><strong>사용 기술:</strong> Unity, C#, 디자인 패턴</p>
-
-            <h4 style="color: var(--pipboy-green); margin-top: 30px;">프로젝트 설명</h4>
-            <p>
-                여기에 프로젝트에 대한 자세한 설명을 작성합니다.
-            </p>
-
-            <h4 style="color: var(--pipboy-green); margin-top: 30px;">주요 기능</h4>
-            <p>• 기능 1: 설명</p>
-            <p>• 기능 2: 설명</p>
-            <p>• 기능 3: 설명</p>
-        </div>
-    </section>
-
-    <!-- PROJECT 2 상세 -->
-    <section id="project2" class="project-section">
-        <div class="project-content">
-            <h2 class="section-title">PROJECT 2</h2>
-            <h3 style="color: var(--pipboy-green); margin-bottom: 20px;">프로젝트명: 게임 타이틀 2</h3>
-
-            <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
-            <p><strong>개발 도구:</strong> Unity 2022, C#</p>
-
-            <h4 style="color: var(--pipboy-green); margin-top: 30px;">프로젝트 설명</h4>
-            <p>프로젝트 2에 대한 설명...</p>
-        </div>
-    </section>
-
-    <!-- PROJECT 3 상세 -->
-    <section id="project3" class="project-section">
-        <div class="project-content">
-            <h2 class="section-title">PROJECT 3</h2>
-            <h3 style="color: var(--pipboy-green); margin-bottom: 20px;">프로젝트명: 게임 타이틀 3</h3>
-
-            <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
-            <p><strong>개발 도구:</strong> Unity 2022, C#</p>
-
-            <h4 style="color: var(--pipboy-green); margin-top: 30px;">프로젝트 설명</h4>
-            <p>프로젝트 3에 대한 설명...</p>
-        </div>
-    </section>
-
-    <!-- PROJECT 4 상세 -->
-    <section id="project4" class="project-section">
-        <div class="project-content">
-            <h2 class="section-title">PROJECT 4</h2>
-            <h3 style="color: var(--pipboy-green); margin-bottom: 20px;">프로젝트명: 게임 타이틀 4</h3>
-
-            <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
-            <p><strong>개발 도구:</strong> Unity 2022, C#</p>
-
-            <h4 style="color: var(--pipboy-green); margin-top: 30px;">프로젝트 설명</h4>
-            <p>프로젝트 4에 대한 설명...</p>
-        </div>
-    </section>
-
-    <!-- 홈으로 돌아가기 버튼 -->
-    <div style="text-align: center; padding: 60px 20px;">
-        <a href="/" style="display: inline-block; padding: 15px 40px; border: 3px solid var(--pipboy-green); color: var(--pipboy-green); text-decoration: none; font-size: 1.2em; transition: all 0.3s;">
-            ← 홈으로 돌아가기
-        </a>
+    <div class="d-flex justify-center mt-12">
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.ArrowBack" Href="/">
+            홈으로 돌아가기
+        </MudButton>
     </div>
-
-</div>
+</MudContainer>
