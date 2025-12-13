@@ -1,0 +1,67 @@
+﻿@using MudBlazor
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+
+<MudCard Outlined="true" Class="mb-4" Style="border: 1px solid #39ff14; background-color: #0d0d0d;">
+
+    <MudCardHeader @onclick="ToggleOpen" Style="border-bottom: 1px solid #39ff14; padding: 8px 16px; cursor: pointer;">
+        <CardHeaderContent>
+            <MudStack Row="true" AlignItems="AlignItems.Center">
+                <MudIcon Icon="@(_isOpen? Icons.Material.Filled.ArrowDropDown : Icons.Material.Filled.ArrowRight)" Color="Color.Primary" />
+                <MudText Typo="Typo.subtitle2" Color="Color.Primary" Style="font-weight:bold;">@Title</MudText>
+
+                @if (!string.IsNullOrEmpty(GithubUrl))
+                {
+                    <div @onclick:stopPropagation="true">
+                        <a href="@GithubUrl" target="_blank" style="display: flex; align-items: center; color: #39ff14; text-decoration: none;">
+                            <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Small" Class="ml-4" />
+                            <span class="ml-1 d-none d-sm-inline" style="font-style: italic; text-decoration: underline;">View on GitHub</span>
+                        </a>
+                    </div>
+                }
+            </MudStack>
+        </CardHeaderContent>
+    </MudCardHeader>
+
+    <MudCollapse Expanded="_isOpen">
+        <MudCardContent Style="padding: 0; overflow-x: auto; border-top: 1px solid #39ff14; background-color: #1a1a1a;">
+
+<pre style="margin: 0; padding: 16px; font-size: 0.95rem; line-height: 1.6;">
+            <code class="language-csharp">
+@ChildContent
+    </code>
+</pre>
+
+        </MudCardContent>
+    </MudCollapse>
+</MudCard>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Title { get; set; } = "Code Snippet";
+    [Parameter] public string GithubUrl { get; set; }
+    [Parameter] public bool Toggle { get; set; } = true; // 기본 토글 상태
+
+    private bool _isOpen;
+
+    protected override void OnInitialized()
+    {
+        _isOpen = Toggle;
+    }
+
+    private void ToggleOpen()
+    {
+        _isOpen = !_isOpen;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // 1. 처음 렌더링될 때(firstRender)
+        // 2. 혹은 접혀있다가 펼쳐졌을 때(_isOpen이 true일 때)
+        // Prism을 다시 실행해서 색을 입힘
+        if (_isOpen)
+        {
+            await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+        }
+    }
+}

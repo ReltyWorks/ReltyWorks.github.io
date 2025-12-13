@@ -1,9 +1,13 @@
-﻿/* 모든 태그에 프리텐다드 폰트 강제 적용 */
-* {
+﻿/* 1. 일반 글씨 영역 (Pretendard) */
+/* 별표(*) 대신 body와 MudBlazor 컴포넌트에만 적용해서 상속되게 만듦 */
+body, .mud-typography, .mud-button-root, .mud-input-control {
     font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
 }
 
-/* 혹시 몰라서 MudBlazor 전용 클래스에도 한 번 더 강조 */
-.mud-typography, .mud-button-root, .mud-input-control {
-    font-family: "Pretendard", sans-serif !important;
+/* 2. 코드 글씨 영역 (Cascadia Mono) */
+/* pre: 코드 박스 전체 */
+/* code: 코드 글자 */
+/* .token: Prism.js가 색칠한 키워드들 (public, class 등) */
+pre, code, .token {
+    font-family: "Cascadia Mono", "Consolas", "Monaco", monospace !important;
 }

@@ -10,13 +10,14 @@
     <MudAppBar Elevation="0" Fixed="true" Style="border-bottom: 2px solid #39ff14; background-color: rgba(13, 13, 13, 0.9);">
 
         <MudSpacer />
-
+        @*상단 메뉴 버튼*@
         <MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">
             <MudStack Row="true" Spacing="4" AlignItems="AlignItems.Center">
                 <MudButton OnClick="GoToHome" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">HOME</MudButton>
 
                 <MudButton Href="/portfolios" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">PORTFOLIOS</MudButton>
-                <MudButton Href="https://github.com/ReltyWorks" Target="_blank" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">GITHUB</MudButton>
+                <MudButton Href="/convention" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">CONVENTION</MudButton>
+                <MudButton Href="https://github.com/ReltyWorks/TechJournal" Target="_blank" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">GITHUB</MudButton>
 
                 <MudButton OnClick="ScrollToBottom" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">CONTACT</MudButton>
             </MudStack>
@@ -31,10 +32,12 @@
 
     <MudDrawer @bind-Open="_drawerOpen" Anchor="Anchor.Right" Elevation="1" Variant="DrawerVariant.Temporary" Style="border-left: 1px solid #39ff14;">
         <MudNavMenu>
+            @*햄버거 메뉴 버튼*@
             <MudNavLink OnClick="@(async () => { DrawerToggle(); await GoToHome(); })" Icon="@Icons.Material.Filled.Home" IconColor="Color.Primary">HOME</MudNavLink>
 
             <MudNavLink Href="/portfolios" Icon="@Icons.Material.Filled.ViewModule" IconColor="Color.Primary">PORTFOLIOS</MudNavLink>
-            <MudNavLink Href="https://github.com/ReltyWorks" Target="_blank" Icon="@Icons.Custom.Brands.GitHub" IconColor="Color.Primary">GITHUB</MudNavLink>
+            <MudNavLink Href="/convention" Icon="@Icons.Material.Filled.Description" IconColor="Color.Primary">CONVENTION</MudNavLink>
+            <MudNavLink Href="https://github.com/ReltyWorks/TechJournal" Target="_blank" Icon="@Icons.Custom.Brands.GitHub" IconColor="Color.Primary">GITHUB</MudNavLink>
 
             <MudNavLink OnClick="@(async () => { DrawerToggle(); await ScrollToBottom(); })" Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary">CONTACT</MudNavLink>
         </MudNavMenu>

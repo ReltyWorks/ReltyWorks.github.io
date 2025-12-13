@@ -1,5 +1,4 @@
-﻿@inject NavigationManager NavManager
-@page "/"
+﻿@page "/"
 
 <style>
     /* 1. 애니메이션 정의: 둥둥 떠다니는 무빙 */
@@ -143,11 +142,11 @@
 </MudGrid>
 
 @code {
-    [Inject] NavigationManager NavMag { get; set; }
+    [Inject] NavigationManager NavManager { get; set; }
 
     void NavigateToGithub()
     {
         // 깃허브 주소 변경 필요
-        NavMag.NavigateTo("https://github.com/ReltyWorks", true);
+        NavManager.NavigateTo("https://github.com/ReltyWorks", true);
     }
 }
