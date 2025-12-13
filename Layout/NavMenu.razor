@@ -1,10 +1,14 @@
 ﻿<nav class="pipboy-nav-main">
-    <a href="#home" class="pipboy-nav-item" id="nav-home">
+    <a href="/" class="pipboy-nav-item" id="nav-home">
         HOME
     </a>
 
-    <a href="#portfolio" class="pipboy-nav-item" id="nav-portfolio">
-        PORTFOLIO
+    <a href="#keyportfolio" class="pipboy-nav-item" id="nav-keyportfolio">
+        KEY POPOL
+    </a>
+
+    <a href="/portfolios" class="pipboy-nav-item" id="nav-portfolios">
+        PORTFOLIOS
     </a>
 
     <a href="#github" class="pipboy-nav-item" id="nav-github">
@@ -19,7 +23,7 @@
 <script>
     // 스크롤 시 메뉴 활성화
     window.addEventListener('scroll', function() {
-        const sections = ['home', 'portfolio', 'github', 'contact'];
+        const sections = ['home', 'keyportfolio', 'github', 'contact'];
         const scrollPos = window.scrollY + 100;
 
         sections.forEach(section => {

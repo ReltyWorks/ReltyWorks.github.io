@@ -1,4 +1,14 @@
 /* ========================================
+   폰트 등록
+   ======================================== */
+@font-face {
+    font-family: 'SeoulNotice';
+    src: url('../fonts/SeoulAlrimBold.ttf') format('truetype');
+    font-weight: 700;
+    font-display: swap;
+}
+
+/* ========================================
    PIPBOY 포트폴리오 - 원페이지 스크롤
    ======================================== */
 
@@ -20,9 +30,10 @@ html {
 }
 
 body {
-    background-color: var(--pipboy-dark) !important;
+    background-color: #0d0d0d !important;
     color: var(--pipboy-text) !important;
-    font-family: 'Courier New', monospace !important;
+    font-family: 'SeoulNotice', 'Courier New', monospace !important;
+    font-weight: 700 !important;
     overflow-x: hidden;
 }
 
@@ -64,12 +75,7 @@ body {
     letter-spacing: 3px;
     text-decoration: none;
     transition: all 0.3s;
-    border-right: 2px solid rgba(57, 255, 20, 0.3);
 }
-
-    .pipboy-nav-item:first-child {
-        border-left: 2px solid rgba(57, 255, 20, 0.3);
-    }
 
     .pipboy-nav-item:hover {
         background-color: rgba(57, 255, 20, 0.1);
