@@ -1,7 +1,42 @@
-﻿<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+﻿<nav class="pipboy-nav-main">
+    <a href="#home" class="pipboy-nav-item" id="nav-home">
+        HOME
+    </a>
 
-    <MudNavLink Href="counter" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
+    <a href="#portfolio" class="pipboy-nav-item" id="nav-portfolio">
+        PORTFOLIO
+    </a>
 
-    <MudNavLink Href="weather" Icon="@Icons.Material.Filled.Cloud">Weather</MudNavLink>
-</MudNavMenu>
+    <a href="#github" class="pipboy-nav-item" id="nav-github">
+        GITHUB
+    </a>
+
+    <a href="#contact" class="pipboy-nav-item" id="nav-contact">
+        CONTACT
+    </a>
+</nav>
+
+<script>
+    // 스크롤 시 메뉴 활성화
+    window.addEventListener('scroll', function() {
+        const sections = ['home', 'portfolio', 'github', 'contact'];
+        const scrollPos = window.scrollY + 100;
+
+        sections.forEach(section => {
+            const element = document.getElementById(section);
+            const navItem = document.getElementById('nav-' + section);
+
+            if (element && navItem) {
+                const offsetTop = element.offsetTop;
+                const offsetBottom = offsetTop + element.offsetHeight;
+
+                if (scrollPos >= offsetTop && scrollPos < offsetBottom) {
+                    document.querySelectorAll('.pipboy-nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    navItem.classList.add('active');
+                }
+            }
+        });
+    });
+</script>

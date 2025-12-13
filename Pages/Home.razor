@@ -1,84 +1,144 @@
 ﻿@page "/"
 
-<MudContainer MaxWidth="MaxWidth.Large">
-    <MudPaper Elevation="3" Class="pa-8 my-4" Style="background-color: #27272f;">
-        <MudGrid>
-            <MudItem xs="12" sm="8">
-                <MudText Typo="Typo.h3" GutterBottom="true" Color="Color.Primary">
-                    <b>안녕하세요, C# 개발자 Relty입니다.</b>
-                </MudText>
-                <MudText Typo="Typo.body1" Class="mb-4">
-                    저는 유니티(Unity) 엔진과 C#을 주력으로 사용하는 클라이언트 개발자입니다.<br />
-                    단순한 구현을 넘어, 효율적인 구조와 네트워크 아키텍처에 관심이 많습니다.
-                </MudText>
-                <MudStack Row="true" Spacing="2">
-                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">Unity</MudChip>
-                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">C#</MudChip>
-                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">ASP.NET Core</MudChip>
-                    <MudChip T="string" Color="Color.Secondary" Variant="Variant.Outlined">Gen AI</MudChip>
-                </MudStack>
-            </MudItem>
-            <MudItem xs="12" sm="4" Class="d-flex justify-center align-center">
-                <MudAvatar Style="height:150px; width:150px; font-size:4rem;" Color="Color.Primary" Variant="Variant.Outlined">
-                    R
-                </MudAvatar>
-            </MudItem>
-        </MudGrid>
-    </MudPaper>
+<PageTitle>Portfolio</PageTitle>
 
-    <MudDivider Class="my-8" />
+<!-- HOME 섹션 -->
+<section id="home" class="section">
+    <h1 class="home-title">⚡ YOUR NAME ⚡</h1>
+    <p class="home-subtitle">> UNITY & C# DEVELOPER_</p>
+    <div class="home-description">
+        <p>안녕하세요! 저는 Unity와 C# 개발자입니다.</p>
+        <p>게임 개발과 프로그래밍에 열정을 가지고 있으며,</p>
+        <p>끊임없이 배우고 성장하는 개발자가 되고자 합니다.</p>
+    </div>
+</section>
 
-    <MudText Typo="Typo.h4" Class="mb-4"><b>Projects</b></MudText>
+<!-- PORTFOLIO 섹션 -->
+<section id="portfolio" class="section">
+    <h2 class="section-title">[ PORTFOLIO ]</h2>
 
-    <MudGrid>
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Elevation="4">
-                <MudCardMedia Image="images/profile.jpg" Height="200" />
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">More Easy Unity</MudText>
-                    <MudText Typo="Typo.body2" Class="mt-2">
-                        유니티 에셋 스토어 출시를 목표로 개발 중인 UI 프레임워크입니다. CSV 기반으로 인벤토리, 미니맵 등을 쉽게 설정할 수 있습니다.
-                    </MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">상세 보기</MudButton>
-                    <MudButton Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Download" HREF="files/AMDoc.pptx" Target="_top">
-                        기획서(PPT)
-                    </MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
+    <div class="portfolio-gallery">
+        <!-- 프로젝트 카드 1 -->
+        <a href="#project1" class="portfolio-card">
+            <div class="portfolio-card-image">
+                🎮
+            </div>
+            <h3 class="portfolio-card-title">Project 1</h3>
+            <p class="portfolio-card-description">
+                프로젝트 1에 대한 간단한 설명입니다.
+                Unity로 제작한 3D 게임 프로젝트입니다.
+            </p>
+        </a>
 
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Elevation="4">
-                <MudCardMedia Image="https://dummyimage.com/600x400/333/fff&text=RPG+Image" Height="200" />
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">Data City MORPG</MudText>
-                    <MudText Typo="Typo.body2" Class="mt-2">
-                        2033년 데이터 센터 도시를 배경으로 한 MORPG입니다. 유니티 기본 템플릿을 확장하여 네트워크 동기화를 구현했습니다.
-                    </MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">상세 보기</MudButton>
-                    <MudButton Variant="Variant.Outlined" Color="Color.Secondary">GitHub</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
+        <!-- 프로젝트 카드 2 -->
+        <a href="#project2" class="portfolio-card">
+            <div class="portfolio-card-image">
+                🕹️
+            </div>
+            <h3 class="portfolio-card-title">Project 2</h3>
+            <p class="portfolio-card-description">
+                프로젝트 2에 대한 간단한 설명입니다.
+                C#과 Unity를 활용한 시뮬레이션 게임입니다.
+            </p>
+        </a>
 
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Elevation="4">
-                <MudCardMedia Image="https://dummyimage.com/600x400/444/fff&text=AI+Gomoku" Height="200" />
-                <MudCardContent>
-                    <MudText Typo="Typo.h5">Generative AI 오목</MudText>
-                    <MudText Typo="Typo.body2" Class="mt-2">
-                        생성형 AI와 대결할 수 있는 C# 콘솔 기반 오목 게임입니다. AI의 패턴 학습을 테스트했습니다.
-                    </MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">코드 보기</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
+        <!-- 프로젝트 카드 3 -->
+        <a href="#project3" class="portfolio-card">
+            <div class="portfolio-card-image">
+                👾
+            </div>
+            <h3 class="portfolio-card-title">Project 3</h3>
+            <p class="portfolio-card-description">
+                프로젝트 3에 대한 간단한 설명입니다.
+                2D 플랫포머 액션 게임 프로젝트입니다.
+            </p>
+        </a>
+    </div>
+</section>
 
-</MudContainer>
+<!-- PROJECT 1 상세 -->
+<section id="project1" class="project-section">
+    <div class="project-content">
+        <h2 class="section-title">PROJECT 1</h2>
+        <h3 style="color: var(--pipboy-green); margin-bottom: 20px;">프로젝트명: 게임 타이틀</h3>
+
+        <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
+        <p><strong>개발 도구:</strong> Unity 2022, C#, Visual Studio</p>
+        <p><strong>사용 기술:</strong> Unity, C#, 디자인 패턴</p>
+
+        <h4 style="color: var(--pipboy-green); margin-top: 30px;">프로젝트 설명</h4>
+        <p>
+            여기에 프로젝트에 대한 자세한 설명을 작성합니다.
+            어떤 게임인지, 어떤 기능을 구현했는지 등을 설명합니다.
+        </p>
+
+        <h4 style="color: var(--pipboy-green); margin-top: 30px;">주요 기능</h4>
+        <p>• 기능 1: 설명</p>
+        <p>• 기능 2: 설명</p>
+        <p>• 기능 3: 설명</p>
+
+        <h4 style="color: var(--pipboy-green); margin-top: 30px;">배운 점</h4>
+        <p>이 프로젝트를 통해 배운 점들을 작성합니다.</p>
+    </div>
+</section>
+
+<!-- PROJECT 2 상세 -->
+<section id="project2" class="project-section">
+    <div class="project-content">
+        <h2 class="section-title">PROJECT 2</h2>
+        <h3 style="color: var(--pipboy-green); margin-bottom: 20px;">프로젝트명: 게임 타이틀 2</h3>
+
+        <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
+        <p><strong>개발 도구:</strong> Unity 2022, C#</p>
+
+        <h4 style="color: var(--pipboy-green); margin-top: 30px;">프로젝트 설명</h4>
+        <p>프로젝트 2에 대한 설명...</p>
+    </div>
+</section>
+
+<!-- PROJECT 3 상세 -->
+<section id="project3" class="project-section">
+    <div class="project-content">
+        <h2 class="section-title">PROJECT 3</h2>
+        <h3 style="color: var(--pipboy-green); margin-bottom: 20px;">프로젝트명: 게임 타이틀 3</h3>
+
+        <p><strong>개발 기간:</strong> 2024.XX ~ 2024.XX</p>
+        <p><strong>개발 도구:</strong> Unity 2022, C#</p>
+
+        <h4 style="color: var(--pipboy-green); margin-top: 30px;">프로젝트 설명</h4>
+        <p>프로젝트 3에 대한 설명...</p>
+    </div>
+</section>
+
+<!-- GITHUB 섹션 -->
+<section id="github" class="section">
+    <h2 class="section-title">[ GITHUB ]</h2>
+
+    <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" class="github-button">
+        <div class="github-icon">🐱</div>
+        <div class="github-text">Visit My GitHub</div>
+    </a>
+
+    <p style="margin-top: 30px; font-size: 1.2em; opacity: 0.7;">
+        > 더 많은 프로젝트를 확인하세요!
+    </p>
+</section>
+
+<!-- CONTACT 섹션 -->
+<section id="contact" class="section">
+    <h2 class="section-title">[ CONTACT ]</h2>
+
+    <div class="contact-info">
+        <div class="contact-item">
+            📧 Email: your.email@example.com
+        </div>
+
+        <div class="contact-item">
+            📱 Phone: 010-XXXX-XXXX
+        </div>
+
+        <div class="contact-item">
+            💼 LinkedIn: linkedin.com/in/yourprofile
+        </div>
+    </div>
+</section>

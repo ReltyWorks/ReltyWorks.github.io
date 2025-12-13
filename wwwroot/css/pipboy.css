@@ -1,0 +1,325 @@
+/* ========================================
+   PIPBOY 포트폴리오 - 원페이지 스크롤
+   ======================================== */
+
+:root {
+    --pipboy-green: #39ff14;
+    --pipboy-dark: #0d0d0d;
+    --pipboy-text: #e0e0e0;
+    --pipboy-menu-bg: #1a1a1a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--pipboy-dark) !important;
+    color: var(--pipboy-text) !important;
+    font-family: 'Courier New', monospace !important;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   고정 상단 메뉴바
+   ======================================== */
+.pipboy-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--pipboy-menu-bg);
+    border-bottom: 4px solid var(--pipboy-green);
+    z-index: 1000;
+    padding: 0;
+}
+
+.pipboy-nav-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    height: 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.pipboy-nav-item {
+    position: relative;
+    color: var(--pipboy-green);
+    background-color: transparent;
+    border: none;
+    padding: 20px 40px;
+    font-size: 1.2em;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-right: 2px solid rgba(57, 255, 20, 0.3);
+}
+
+    .pipboy-nav-item:first-child {
+        border-left: 2px solid rgba(57, 255, 20, 0.3);
+    }
+
+    .pipboy-nav-item:hover {
+        background-color: rgba(57, 255, 20, 0.1);
+        text-shadow: 0 0 10px var(--pipboy-green);
+    }
+
+    .pipboy-nav-item.active {
+        background-color: rgba(57, 255, 20, 0.2);
+        box-shadow: inset 0 -4px 0 var(--pipboy-green);
+    }
+
+/* 하위 메뉴 (Portfolio) */
+.pipboy-subnav {
+    display: none;
+    background-color: rgba(26, 26, 26, 0.95);
+    border-top: 2px solid rgba(57, 255, 20, 0.3);
+    padding: 15px 0;
+}
+
+.pipboy-nav-item.has-submenu:hover .pipboy-subnav,
+.pipboy-nav-item.has-submenu.active .pipboy-subnav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.pipboy-subnav-item {
+    color: var(--pipboy-green);
+    padding: 10px 20px;
+    font-size: 0.9em;
+    text-decoration: none;
+    border: 1px solid var(--pipboy-green);
+    transition: all 0.3s;
+}
+
+    .pipboy-subnav-item:hover {
+        background-color: var(--pipboy-green);
+        color: var(--pipboy-dark);
+    }
+
+/* ========================================
+   섹션 공통 스타일
+   ======================================== */
+.section {
+    min-height: 100vh;
+    padding: 100px 20px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: transparent; /* 추가 */
+}
+
+.section-title {
+    font-size: 3em;
+    color: var(--pipboy-green);
+    text-align: center;
+    margin-bottom: 50px;
+    text-shadow: 0 0 20px var(--pipboy-green);
+    letter-spacing: 5px;
+}
+
+/* ========================================
+   HOME 섹션
+   ======================================== */
+#home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.home-title {
+    font-size: 4em;
+    color: var(--pipboy-green);
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px var(--pipboy-green);
+}
+
+.home-subtitle {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    opacity: 0.8;
+}
+
+.home-description {
+    max-width: 800px;
+    font-size: 1.2em;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+/* ========================================
+   PORTFOLIO 섹션 - 갤러리
+   ======================================== */
+#portfolio {
+    padding-top: 100px;
+}
+
+.portfolio-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.portfolio-card {
+    background-color: rgba(57, 255, 20, 0.05);
+    border: 2px solid var(--pipboy-green);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: block;
+}
+
+    .portfolio-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(57, 255, 20, 0.3);
+        background-color: rgba(57, 255, 20, 0.1);
+    }
+
+.portfolio-card-image {
+    width: 100%;
+    height: 200px;
+    background-color: rgba(57, 255, 20, 0.1);
+    border: 1px solid var(--pipboy-green);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3em;
+}
+
+.portfolio-card-title {
+    font-size: 1.5em;
+    color: var(--pipboy-green);
+    margin-bottom: 10px;
+}
+
+.portfolio-card-description {
+    font-size: 1em;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+/* 개별 프로젝트 섹션 */
+.project-section {
+    min-height: 100vh;
+    padding: 100px 20px;
+}
+
+.project-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 3px solid var(--pipboy-green);
+    padding: 40px;
+    background-color: rgba(57, 255, 20, 0.03);
+}
+
+/* ========================================
+   GITHUB 섹션
+   ======================================== */
+#github {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.github-button {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(57, 255, 20, 0.1);
+    border: 5px solid var(--pipboy-green);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: var(--pipboy-green);
+}
+
+    .github-button:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 0 50px rgba(57, 255, 20, 0.5);
+        background-color: rgba(57, 255, 20, 0.2);
+    }
+
+.github-icon {
+    font-size: 8em;
+    margin-bottom: 20px;
+}
+
+.github-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* ========================================
+   CONTACT 섹션
+   ======================================== */
+#contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.contact-info {
+    max-width: 600px;
+    font-size: 1.3em;
+    line-height: 2;
+}
+
+.contact-item {
+    margin: 20px 0;
+    padding: 15px;
+    border: 2px solid var(--pipboy-green);
+    background-color: rgba(57, 255, 20, 0.05);
+}
+
+/* ========================================
+   반응형
+   ======================================== */
+@media (max-width: 768px) {
+    .pipboy-nav-main {
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .pipboy-nav-item {
+        padding: 15px 20px;
+        font-size: 1em;
+    }
+
+    .section-title {
+        font-size: 2em;
+    }
+
+    .home-title {
+        font-size: 2.5em;
+    }
+
+    .portfolio-gallery {
+        grid-template-columns: 1fr;
+    }
+}
