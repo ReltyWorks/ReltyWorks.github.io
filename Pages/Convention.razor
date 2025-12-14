@@ -7,7 +7,6 @@
     </MudText>
 
     <CodeBox Title="Coding Convention (C#)" GithubUrl="https://github.com/ReltyWorks/TechJournal/blob/main/CodingConvention/CodingConvention.cs" >
-
     C# Coding Convention
         (The 6th New Vegas Conference)
     Finalized Date: 2225-12-12
@@ -147,7 +146,7 @@
                    address: "Seoul",
                    isActive: true);
 
---------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
 
     # 04. 타입 추론(var, new)을 통한 보일러플레이트 제거 (IDE0007, IDE0090)
 
@@ -168,7 +167,7 @@
     ### <strong>Good</strong> (var 사용) :
         var scores = new Dictionary&lt;string, int&gt;();
 
---------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
 
     # 05. 제어문 블록 규칙 (Control Flow Block Rules)
 
@@ -223,7 +222,7 @@
         return;
     }
 
---------------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
 
     # 06. 클래스 멤버 작성 순서 (Class Layout)
 
@@ -281,12 +280,11 @@
         // - 공개 메서드가 적으므로, 위 코드에서 호출되는(등장하는) 순서대로 배치
         private bool CanAttack()
         {
-            return _hp & gt; 0;
+            return _hp &gt; 0;
         }
 
         // ... 기타 비공개 메서드 ...
     }
-
     </CodeBox>
 
 </MudContainer>

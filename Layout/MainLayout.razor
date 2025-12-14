@@ -19,7 +19,7 @@
                 <MudButton Href="/convention" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">CONVENTION</MudButton>
                 <MudButton Href="https://github.com/ReltyWorks/TechJournal" Target="_blank" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">GITHUB</MudButton>
 
-                <MudButton OnClick="ScrollToBottom" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">CONTACT</MudButton>
+                <MudButton OnClick="GoToContact" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">CONTACT</MudButton>
             </MudStack>
         </MudHidden>
 
@@ -39,7 +39,7 @@
             <MudNavLink Href="/convention" Icon="@Icons.Material.Filled.Description" IconColor="Color.Primary">CONVENTION</MudNavLink>
             <MudNavLink Href="https://github.com/ReltyWorks/TechJournal" Target="_blank" Icon="@Icons.Custom.Brands.GitHub" IconColor="Color.Primary">GITHUB</MudNavLink>
 
-            <MudNavLink OnClick="@(async () => { DrawerToggle(); await ScrollToBottom(); })" Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary">CONTACT</MudNavLink>
+            <MudNavLink OnClick="@(async () => { DrawerToggle(); await GoToContact(); })" Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary">CONTACT</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
 
@@ -59,21 +59,27 @@
     private async Task GoToHome()
     {
         // 현재 주소가 홈("/")인지 확인 (BaseUri와 비교)
+        // 이미 홈이면 -> 부드럽게 맨 위로 스크롤
         if (NavManager.Uri == NavManager.BaseUri)
-        {
-            // 이미 홈이면 -> 부드럽게 맨 위로 스크롤
             await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
-        }
         else
-        {
-            // 다른 곳이면 -> 홈으로 이동 (이동하면 자동으로 맨 위임)
-            NavManager.NavigateTo("/");
-        }
+            NavManager.NavigateTo("/"); // 다른 곳이면 -> 홈으로 이동 (이동하면 자동으로 맨 위임)
     }
 
-    // 화면 맨 아래로 스크롤
-    private async Task ScrollToBottom()
+    // 화면 맨 아래로 스크롤 (똑똑한 버전)
+    private async Task GoToContact()
     {
+        // 1. 현재 홈(BaseUri)이 아닌지 확인
+        if (NavManager.Uri != NavManager.BaseUri)
+        {
+            // 홈이 아니면 일단 홈으로 이동
+            NavManager.NavigateTo("/");
+
+            // 페이지가 바뀌고 화면이 그려질 때까지 0.3초(300ms)만 기다려줌.
+            await Task.Delay(300);
+        }
+
+        // 2. 홈으로 왔거나 원래 홈이었으니, 이제 맨 아래로 스크롤
         await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 100000, behavior = "smooth" });
     }
 
