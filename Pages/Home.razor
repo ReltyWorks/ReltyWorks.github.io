@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿@inject ISnackbar Snackbar
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavManager
+@page "/"
 
 <style>
     /* 1. 애니메이션 정의: 둥둥 떠다니는 무빙 */
@@ -130,19 +133,44 @@
 
     <MudItem xs="12" md="6">
         <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ CONTACT ]</MudText>
-        <MudList T="string">
-            <MudListItem Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary">
-                your.email@example.com
+
+        <MudList T="string" Clickable="true">
+
+            <MudListItem Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary"
+                         OnClick="@(() => CopyToClipboard("relty.works@gmail.com"))">
+                relty.works@gmail.com
             </MudListItem>
-            <MudListItem Icon="@Icons.Material.Filled.Phone" IconColor="Color.Primary">
-                010-XXXX-XXXX
+
+            <MudListItem Icon="@Icons.Custom.Brands.Discord" IconColor="Color.Primary"
+                         OnClick="@(() => CopyToClipboard("https://discord.gg/zUjWwqYuz2"))">
+                Discord Community
             </MudListItem>
+
+            <MudListItem Icon="@Icons.Material.Filled.LocationOn" IconColor="Color.Primary">
+                Seoul, Republic of Korea
+            </MudListItem>
+
         </MudList>
     </MudItem>
 </MudGrid>
 
 @code {
-    [Inject] NavigationManager NavManager { get; set; }
+    // 클립보드 복사 함수
+    private async Task CopyToClipboard(string text)
+    {
+        // 1. 자바스크립트로 텍스트 복사
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
+
+        // 2. 하단에 알림 메시지 띄우기 (UX 필수!)
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomCenter;
+        Snackbar.Configuration.ShowCloseIcon = false; // 심플하게 X버튼 제거
+        Snackbar.Add($"CopyToClipboard", Severity.Success, config =>
+        {
+            config.HideTransitionDuration = 200; // 빨리 사라지게
+            config.ShowTransitionDuration = 200;
+            config.VisibleStateDuration = 750; // 1.5초만 보여줌
+        });
+    }
 
     void NavigateToGithub()
     {
