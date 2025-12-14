@@ -1,0 +1,67 @@
+﻿@page "/portfolio/{Id:int}"
+@using GitPagePortfolio.Models
+@using GitPagePortfolio.Services
+@inject PortfolioService PortfolioService
+@inject NavigationManager NavManager
+
+<PageTitle>@(portfolio?.Title ?? "Loading...")</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-8">
+    @if (portfolio == null)
+    {
+        <MudAlert Severity="Severity.Error">존재하지 않는 포트폴리오입니다.</MudAlert>
+        <MudButton Href="/portfolios" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4">돌아가기</MudButton>
+    }
+    else
+    {
+        <MudStack Spacing="4" Class="mb-8">
+            <MudText Typo="Typo.h3" Color="Color.Primary" Align="Align.Center" Style="font-weight:bold;">
+                @portfolio.Title
+            </MudText>
+
+            <MudText Typo="Typo.body1" Align="Align.Center" Style="color: white; white-space: pre-line;">
+                @portfolio.Description
+            </MudText>
+        </MudStack>
+
+        <MudDivider Class="my-8" Light="true" />
+
+        <MudPaper Outlined="true" Class="pa-4" Style="border: 2px solid #39ff14; background-color: #0d0d0d;">
+
+            <MudStack Spacing="4">
+                @for (int i = 1; i <= portfolio.TotalSlides; i++)
+                {
+                    int pageNum = i;
+
+                    string imgPath = $"files/{portfolio.Id:D2}/{pageNum:D2}.jpg";
+
+                    <MudImage Src="@imgPath"
+                              Fluid="true"
+                              ObjectFit="ObjectFit.Contain"
+                              Class="rounded-lg mb-4"
+                              Style="width: 100%; display: block;"
+                              Alt="@($"{portfolio.Title} - Page {pageNum}")"
+                              UserAttributes="@(new Dictionary<string, object> { { "loading", "lazy" } })" />
+                }
+            </MudStack>
+
+        </MudPaper>
+
+        <div class="d-flex justify-center mt-12 gap-4">
+            <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.ArrowBack" Href="/portfolios">
+                목록으로
+            </MudButton>
+        </div>
+    }
+</MudContainer>
+
+@code {
+    [Parameter] public int Id { get; set; } // URL에서 {Id}를 받아옴
+    private Portfolio? portfolio;
+
+    protected override void OnInitialized()
+    {
+        // 서비스한테 "몇 번 포트폴리오 데이터 줘!" 라고 요청
+        portfolio = PortfolioService.GetById(Id);
+    }
+}

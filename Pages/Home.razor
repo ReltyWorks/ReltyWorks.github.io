@@ -1,10 +1,13 @@
-﻿@inject ISnackbar Snackbar
+﻿@page "/"
+@using GitPagePortfolio.Models
+@using GitPagePortfolio.Services
+@inject ISnackbar Snackbar
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavManager
-@page "/"
+@inject PortfolioService PortfolioService
 
 <style>
-    /* 1. 애니메이션 정의: 둥둥 떠다니는 무빙 */
+    /* 1. 애니메이션 정의 */
     @@keyframes floating-wobble {
         0% {
             transform: scale(1.05) rotate(-3deg) translateX(-5px);
@@ -19,20 +22,13 @@
         }
     }
 
-    /* 2. 평소 상태 (부드러운 전환을 위해 transition 유지) */
     .github-button {
         transition: all 0.3s ease-in-out;
     }
 
-        /* 3. 마우스 올렸을 때 효과 */
         .github-button:hover {
-            /* 색상과 그림자는 즉시 적용 */
             box-shadow: 0 0 50px rgba(57, 255, 20, 0.5);
             background-color: rgba(57, 255, 20, 0.25);
-            /* 아까 정의한 'floating-wobble' 애니메이션 실행 */
-            /* 3s: 3초 동안 천천히 (숫자가 클수록 더 느려짐) */
-            /* infinite: 마우스 올리고 있는 동안 무한 반복 */
-            /* alternate: 왔다 갔다 자연스럽게 연결 */
             animation: floating-wobble 3s ease-in-out infinite alternate;
         }
 </style>
@@ -47,7 +43,8 @@
         UNITY & C# DEVELOPER
     </MudText>
     <MudText Typo="Typo.body1" Align="Align.Center">
-        안녕하세요! 저는 Unity와 C# 개발자입니다.<br />
+        안녕하세요!<br />
+        저는 Unity와 C# 개발자입니다.<br />
         게임 개발과 프로그래밍에 열정을 가지고 있으며,<br />
         끊임없이 배우고 성장하는 개발자가 되고자 합니다.
     </MudText>
@@ -55,126 +52,108 @@
 
 <MudDivider Class="my-12" />
 
-<MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-8">
+<MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-8" Style="text-shadow: 0 0 10px #39ff14;">
     [ KEY PORTFOLIO ]
 </MudText>
 
-<MudCard Outlined="true" Class="pa-4" Style="border: 2px solid #39ff14; background-color: rgba(57, 255, 20, 0.05);">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center">⭐ 메인 프로젝트 제목 ⭐</MudText>
-        </CardHeaderContent>
-    </MudCardHeader>
-
-    <MudCardContent>
-        <MudStack AlignItems="AlignItems.Center" Class="mb-6">
-            <MudAvatar Size="Size.Large" Color="Color.Primary" Variant="Variant.Outlined" Style="width:100px; height:100px; font-size:3rem;">
-                🎮
-            </MudAvatar>
-        </MudStack>
-
-        <MudGrid>
-            <MudItem xs="12" md="6">
-                <MudList T="string" Dense="true">
-                    <MudListItem Icon="@Icons.Material.Filled.CalendarToday" IconColor="Color.Primary">
-                        <strong>개발 기간:</strong> 2024.XX ~ 2024.XX
-                    </MudListItem>
-                    <MudListItem Icon="@Icons.Material.Filled.Computer" IconColor="Color.Primary">
-                        <strong>개발 도구:</strong> Unity 2022, C#, VS
-                    </MudListItem>
-                </MudList>
-            </MudItem>
-            <MudItem xs="12" md="6">
-                <MudList T="string" Dense="true">
-                    <MudListItem Icon="@Icons.Material.Filled.Code" IconColor="Color.Primary">
-                        <strong>사용 기술:</strong> Unity, C#, Design Patterns
-                    </MudListItem>
-                    <MudListItem Icon="@Icons.Material.Filled.Person" IconColor="Color.Primary">
-                        <strong>팀 구성:</strong> 1인 개발
-                    </MudListItem>
-                </MudList>
-            </MudItem>
-        </MudGrid>
-
-        <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-6 mb-2">📋 프로젝트 개요</MudText>
-        <MudText Typo="Typo.body1">
-            이 프로젝트는 [프로젝트 설명]... 여기에 가장 자랑하고 싶은 메인 프로젝트의 상세한 설명을 작성합니다.
+@if (keyPortfolio != null)
+{
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudText Typo="Typo.h5" Color="Color.Primary" Align="Align.Center" Class="mb-4" Style="font-weight:bold;">
+            @keyPortfolio.Title
         </MudText>
 
-        <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-6 mb-2">💡 배운 점 & 성장</MudText>
-        <MudText Typo="Typo.body1">
-            이 프로젝트를 통해 배운 점들을 작성합니다.
+        <MudText Typo="Typo.body1" Align="Align.Center" Class="mb-8" Style="color: white; white-space: pre-line;">
+            @keyPortfolio.Description
         </MudText>
-    </MudCardContent>
 
-    <MudCardActions Class="d-flex justify-center my-4">
-        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" Href="/portfolios">
-            &gt; 다른 프로젝트 보기
-        </MudButton>
-    </MudCardActions>
-</MudCard>
+        <MudPaper Outlined="true" Class="pa-4 mb-8" Style="border: 2px solid #39ff14; background-color: rgba(57, 255, 20, 0.05);">
+            <MudStack Spacing="4">
+                @for (int i = 1; i <= keyPortfolio.TotalSlides; i++)
+                {
+                    int pageNum = i;
+                    // 아까 합의한 경로: files/00/01.jpg
+                    string imgPath = $"files/{keyPortfolio.Id:D2}/{pageNum:D2}.jpg";
+
+                    <MudImage Src="@imgPath"
+                              Fluid="true"
+                              ObjectFit="ObjectFit.Contain"
+                              Class="rounded-lg"
+                              Style="width: 100%; display: block;"
+                              Alt="@($"{keyPortfolio.Title} - Page {pageNum}")"
+                              UserAttributes="@(new Dictionary<string, object> { { "loading", "lazy" } })" />
+                }
+            </MudStack>
+        </MudPaper>
+
+        <div class="d-flex justify-center my-4">
+            <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" Href="/portfolios">
+                &gt; 다른 프로젝트 보기
+            </MudButton>
+        </div>
+    </MudContainer>
+}
+else
+{
+    <MudAlert Severity="Severity.Warning" Variant="Variant.Outlined" Class="my-4">
+        표시할 Key Portfolio 데이터(ID: 0)가 없습니다. PortfolioService를 확인해주세요.
+    </MudAlert>
+}
 
 <MudDivider Class="my-12" />
 
 <MudGrid Class="mb-16">
     <MudItem xs="12" md="6">
         <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ GITHUB ]</MudText>
-
         <MudPaper Class="d-flex flex-column align-center justify-center py-8 github-button"
                   Outlined="true"
                   Style="border-color:#39ff14; cursor:pointer;"
                   @onclick="@(() => NavigateToGithub())">
-
             <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Large" Color="Color.Primary" Style="font-size: 5rem;" />
             <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-4">VISIT MY GITHUB</MudText>
-
         </MudPaper>
     </MudItem>
 
     <MudItem xs="12" md="6">
         <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ CONTACT ]</MudText>
-
         <MudList T="string" Clickable="true">
-
-            <MudListItem Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary"
-                         OnClick="@(() => CopyToClipboard("relty.works@gmail.com"))">
+            <MudListItem Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary" OnClick="@(() => CopyToClipboard("relty.works@gmail.com"))">
                 relty.works@gmail.com
             </MudListItem>
-
-            <MudListItem Icon="@Icons.Custom.Brands.Discord" IconColor="Color.Primary"
-                         OnClick="@(() => CopyToClipboard("https://discord.gg/zUjWwqYuz2"))">
+            <MudListItem Icon="@Icons.Custom.Brands.Discord" IconColor="Color.Primary" OnClick="@(() => CopyToClipboard("https://discord.gg/zUjWwqYuz2"))">
                 Discord Community
             </MudListItem>
-
             <MudListItem Icon="@Icons.Material.Filled.LocationOn" IconColor="Color.Primary">
                 Seoul, Republic of Korea
             </MudListItem>
-
         </MudList>
     </MudItem>
 </MudGrid>
 
 @code {
-    // 클립보드 복사 함수
+    private Portfolio? keyPortfolio;
+
+    protected override void OnInitialized()
+    {
+        // 0번 포트폴리오를 'Key Portfolio'로 가져옴
+        keyPortfolio = PortfolioService.GetById(0);
+    }
+
     private async Task CopyToClipboard(string text)
     {
-        // 1. 자바스크립트로 텍스트 복사
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
-
-        // 2. 하단에 알림 메시지 띄우기 (UX 필수!)
         Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomCenter;
-        Snackbar.Configuration.ShowCloseIcon = false; // 심플하게 X버튼 제거
+        Snackbar.Configuration.ShowCloseIcon = false;
         Snackbar.Add($"CopyToClipboard", Severity.Success, config =>
         {
-            config.HideTransitionDuration = 200; // 빨리 사라지게
+            config.HideTransitionDuration = 200;
             config.ShowTransitionDuration = 200;
-            config.VisibleStateDuration = 750; // 1.5초만 보여줌
+            config.VisibleStateDuration = 750;
         });
     }
 
     void NavigateToGithub()
     {
-        // 깃허브 주소 변경 필요
         NavManager.NavigateTo("https://github.com/ReltyWorks", true);
     }
 }

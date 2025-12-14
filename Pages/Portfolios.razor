@@ -1,52 +1,40 @@
 ﻿@page "/portfolios"
+@using GitPagePortfolio.Models
+@using GitPagePortfolio.Services
+@inject PortfolioService PortfolioService
+@inject NavigationManager NavManager
 
 <PageTitle>All Portfolios</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-8">
-    <MudText Typo="Typo.h3" Color="Color.Primary" Align="Align.Center" Class="mb-12">
+    <MudText Typo="Typo.h3" Color="Color.Primary" Align="Align.Center" Class="mb-12" Style="text-shadow: 0 0 10px #39ff14;">
         [ ALL PORTFOLIOS ]
     </MudText>
 
-    <MudGrid>
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Outlined="true" Class="mud-theme-card-hover" Style="border-color: #39ff14;">
-                <MudCardMedia Image="https://dummyimage.com/600x400/000/39ff14&text=Project+1" Height="200" />
-                <MudCardContent>
-                    <MudText Typo="Typo.h5" Color="Color.Primary">Project 1</MudText>
-                    <MudText Typo="Typo.body2" Class="mt-2">Unity로 제작한 3D 게임 프로젝트입니다.</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">자세히 보기</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Outlined="true" Style="border-color: #39ff14;">
-                <MudCardMedia Image="https://dummyimage.com/600x400/000/39ff14&text=Project+2" Height="200" />
-                <MudCardContent>
-                    <MudText Typo="Typo.h5" Color="Color.Primary">Project 2</MudText>
-                    <MudText Typo="Typo.body2" Class="mt-2">C#과 Unity를 활용한 시뮬레이션 게임입니다.</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">자세히 보기</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-
-        <MudItem xs="12" sm="6" md="4">
-            <MudCard Outlined="true" Style="border-color: #39ff14;">
-                <MudCardMedia Image="https://dummyimage.com/600x400/000/39ff14&text=Project+3" Height="200" />
-                <MudCardContent>
-                    <MudText Typo="Typo.h5" Color="Color.Primary">Project 3</MudText>
-                    <MudText Typo="Typo.body2" Class="mt-2">2D 플랫포머 액션 게임 프로젝트입니다.</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">자세히 보기</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
+    @if (_portfolios == null)
+    {
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+    }
+    else
+    {
+        <MudGrid>
+            @foreach (var item in _portfolios)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudCard Outlined="true" Class="mud-theme-card-hover" Style="border-color: #39ff14; cursor: pointer; height: 100%;" @onclick="() => GoToDetail(item.Id)">
+                        <MudCardMedia Image="@item.ThumbnailPath" Height="250" />
+                        <MudCardContent>
+                            <MudText Typo="Typo.h5" Color="Color.Primary" Style="font-weight:bold;">@item.Title</MudText>
+                            <MudText Typo="Typo.body2" Class="mt-2" Style="white-space: pre-wrap;">@item.Description</MudText>
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton Variant="Variant.Text" Color="Color.Primary">자세히 보기</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    }
 
     <div class="d-flex justify-center mt-12">
         <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.ArrowBack" Href="/">
@@ -54,3 +42,19 @@
         </MudButton>
     </div>
 </MudContainer>
+
+@code {
+    private List<Portfolio> _portfolios;
+
+    protected override void OnInitialized()
+    {
+        // 서비스에서 리스트 메뉴판 가져오기!
+        _portfolios = PortfolioService.GetAll();
+    }
+
+    private void GoToDetail(int id)
+    {
+        // 상세 페이지로 이동 (URL: /portfolio/0, /portfolio/1 ...)
+        NavManager.NavigateTo($"/portfolio/{id}");
+    }
+}
