@@ -14,9 +14,9 @@
         <MudHidden Breakpoint="Breakpoint.MdAndUp" Invert="true">
             <MudStack Row="true" Spacing="4" AlignItems="AlignItems.Center">
                 <MudButton OnClick="GoToHome" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">HOME</MudButton>
-
                 <MudButton Href="/portfolios" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">PORTFOLIOS</MudButton>
                 <MudButton Href="/convention" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">CONVENTION</MudButton>
+                <MudButton Href="/posts" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">POST</MudButton>
                 <MudButton Href="https://github.com/ReltyWorks/TechJournal" Target="_blank" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">GITHUB</MudButton>
 
                 <MudButton OnClick="GoToContact" Color="Color.Primary" Variant="Variant.Text" Style="font-weight:bold;">CONTACT</MudButton>
@@ -37,6 +37,7 @@
 
             <MudNavLink Href="/portfolios" Icon="@Icons.Material.Filled.ViewModule" IconColor="Color.Primary">PORTFOLIOS</MudNavLink>
             <MudNavLink Href="/convention" Icon="@Icons.Material.Filled.Description" IconColor="Color.Primary">CONVENTION</MudNavLink>
+            <MudNavLink Href="/posts" Icon="@Icons.Material.Filled.MenuBook" IconColor="Color.Primary">POST</MudNavLink>
             <MudNavLink Href="https://github.com/ReltyWorks/TechJournal" Target="_blank" Icon="@Icons.Custom.Brands.GitHub" IconColor="Color.Primary">GITHUB</MudNavLink>
 
             <MudNavLink OnClick="@(async () => { DrawerToggle(); await GoToContact(); })" Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary">CONTACT</MudNavLink>
@@ -55,36 +56,25 @@
     bool _drawerOpen = false;
     void DrawerToggle() => _drawerOpen = !_drawerOpen;
 
-    // 홈으로 가거나, 이미 홈이면 맨 위로 올리기
     private async Task GoToHome()
     {
-        // 현재 주소가 홈("/")인지 확인 (BaseUri와 비교)
-        // 이미 홈이면 -> 부드럽게 맨 위로 스크롤
         if (NavManager.Uri == NavManager.BaseUri)
             await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 0, behavior = "smooth" });
         else
-            NavManager.NavigateTo("/"); // 다른 곳이면 -> 홈으로 이동 (이동하면 자동으로 맨 위임)
+            NavManager.NavigateTo("/");
     }
 
-    // 화면 맨 아래로 스크롤 (똑똑한 버전)
     private async Task GoToContact()
     {
-        // 1. 현재 홈(BaseUri)이 아닌지 확인
         if (NavManager.Uri != NavManager.BaseUri)
         {
-            // 홈이 아니면 일단 홈으로 이동
             NavManager.NavigateTo("/");
-
-            // 페이지가 바뀌고 화면이 그려질 때까지 0.3초(300ms)만 기다려줌.
             await Task.Delay(300);
         }
-
-        // 2. 홈으로 왔거나 원래 홈이었으니, 이제 맨 아래로 스크롤
         await JSRuntime.InvokeVoidAsync("window.scrollTo", new { top = 100000, behavior = "smooth" });
     }
 
     private MudTheme _pipBoyTheme = new MudTheme();
-
     protected override void OnInitialized()
     {
         _pipBoyTheme.PaletteDark.Primary = "#39ff14";

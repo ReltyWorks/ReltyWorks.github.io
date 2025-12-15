@@ -1,0 +1,121 @@
+﻿@page "/posts"
+@using GitPagePortfolio.Models
+@using GitPagePortfolio.Services
+@inject PostService PostService
+@inject NavigationManager NavManager
+
+<PageTitle>Tech Post</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-8">
+    @* 제목 영역 *@
+    <MudText Typo="Typo.h3" Color="Color.Primary" Align="Align.Center" Class="mb-12" Style="text-shadow: 0 0 10px #39ff14;">
+        [ POST ]
+    </MudText>
+
+    @* 데이터가 로딩 중일 때 *@
+    @if (_posts == null)
+    {
+        <div class="d-flex justify-center my-8">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+        </div>
+        <MudText Align="Align.Center" Color="Color.Primary">포스트 데이터를 불러오는 중...</MudText>
+    }
+    else
+    {
+        @* 데이터가 없을 때 *@
+        @if (_posts.Count == 0)
+        {
+            <MudAlert Severity="Severity.Info" Variant="Variant.Outlined" Class="my-4">
+                등록된 포스트가 없습니다.
+                (wwwroot/post 폴더에 001.yaml 파일을 추가해주세요!)
+            </MudAlert>
+        }
+        else
+        {
+            @* [필터 기능 추가됨] 
+               Filter: 이 테이블이 사용할 필터 함수를 지정
+            *@
+            <MudTable Items="_posts" Hover="true" Breakpoint="Breakpoint.Sm" RowsPerPage="20"
+                      Style="border: 2px solid #39ff14; background-color: #0d0d0d;"
+                      OnRowClick="OnRowClick" T="Post"
+                      Filter="new Func<Post,bool>(FilterFunc1)">
+
+                @* [추가됨] 상단 툴바 (검색창 영역) *@
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6" Color="Color.Primary">Post List</MudText>
+                    <MudSpacer />
+                    @* 검색 입력창 
+                       - Immediate="true": 타이핑하자마자 바로 검색됨
+                       - AdornmentIcon: 돋보기 아이콘 추가
+                    *@
+                    <MudTextField @bind-Value="_searchString"
+                                  Placeholder="제목 검색..."
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium"
+                                  Class="mt-0"
+                                  Immediate="true" />
+                </ToolBarContent>
+
+                <HeaderContent>
+                    <MudTh Style="color: #39ff14; font-weight:bold; width: 10%;">No</MudTh>
+                    <MudTh Style="color: #39ff14; font-weight:bold; width: 70%;">Title</MudTh>
+                    <MudTh Style="color: #39ff14; font-weight:bold; width: 20%;">Date</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="No" Style="color: #e0e0e0;">@context.Id</MudTd>
+                    <MudTd DataLabel="Title" Style="color: #e0e0e0; font-weight: bold; cursor: pointer;">
+                        @context.Title
+                    </MudTd>
+                    <MudTd DataLabel="Date" Style="color: #b0b0b0;">
+                        @context.Date.ToString("yyyy.MM.dd")
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager HideRowsPerPage="true" HorizontalAlignment="HorizontalAlignment.Center" />
+                </PagerContent>
+            </MudTable>
+        }
+    }
+
+    <div class="d-flex justify-center mt-12">
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.ArrowBack" Href="/">
+            홈으로 돌아가기
+        </MudButton>
+    </div>
+</MudContainer>
+
+@code {
+    private List<Post>? _posts;
+    private string _searchString = ""; // 검색어 저장 변수
+
+    protected override async Task OnInitializedAsync()
+    {
+        await PostService.LoadPostsAsync();
+        _posts = PostService.GetAll();
+    }
+
+    private void OnRowClick(TableRowClickEventArgs<Post> args)
+    {
+        NavManager.NavigateTo($"/posts/{args.Item.Id}");
+    }
+
+    // [추가됨] 필터링 로직 연결 함수
+    private bool FilterFunc1(Post element) => FilterFunc(element, _searchString);
+
+    // [추가됨] 실제 검색 로직
+    private bool FilterFunc(Post element, string searchString)
+    {
+        // 1. 검색어가 비어있으면 -> 모든 글 다 보여줌 (true)
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+
+        // 2. 제목(Title)에 검색어가 포함되어 있으면(Contains) -> 보여줌 (true)
+        // StringComparison.OrdinalIgnoreCase : 대소문자 구분 없이 검색 (영어 제목일 경우 편함)
+        if (element.Title.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        // 3. 아니면 -> 숨김 (false)
+        return false;
+    }
+}

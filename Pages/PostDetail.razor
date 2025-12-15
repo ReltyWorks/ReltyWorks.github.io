@@ -1,0 +1,96 @@
+﻿@page "/posts/{Id:int}"
+@using GitPagePortfolio.Models
+@using GitPagePortfolio.Services
+@using Markdig
+@inject PostService PostService
+@inject NavigationManager NavManager
+@inject IJSRuntime JSRuntime
+
+<PageTitle>@(post?.Title ?? "Loading...")</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="my-8">
+    @if (isLoading)
+    {
+        <div class="d-flex justify-center my-16">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+        </div>
+    }
+    else if (post == null)
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Outlined" Class="my-4">
+            존재하지 않는 포스트 데이터입니다. (ID: @Id)
+        </MudAlert>
+        <MudButton Href="/posts" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4">
+            목록으로 돌아가기
+        </MudButton>
+    }
+    else
+    {
+        @* 제목 영역 *@
+        <MudStack Spacing="2" Class="mb-8">
+            <MudText Typo="Typo.h3" Color="Color.Primary" Align="Align.Center" Style="font-weight:bold; text-shadow: 0 0 10px #39ff14;">
+                @post.Title
+            </MudText>
+            <MudText Typo="Typo.subtitle1" Align="Align.Center" Style="color: #888;">
+                @post.Date.ToString("yyyy.MM.dd")
+            </MudText>
+        </MudStack>
+
+        <MudDivider Class="my-8" Light="true" Style="border-color: #39ff14;" />
+
+        @* 본문 영역 *@
+        <MudPaper Outlined="true" Class="pa-8" Style="border: 1px solid #39ff14; background-color: #0d0d0d; min-height: 400px;">
+            @* [핵심 변경] 
+               MarkupString: HTML 태그가 포함된 문자열을 "그대로" 렌더링해주는 기능 
+               (이거 안 쓰면 <b>안녕</b> 글자가 그대로 나옴)
+            *@
+            <div class="markdown-body" style="color: #e0e0e0; line-height: 1.8;">
+                @(new MarkupString(htmlContent))
+            </div>
+        </MudPaper>
+
+        @* 하단 버튼 *@
+        <div class="d-flex justify-center mt-12">
+            <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" StartIcon="@Icons.Material.Filled.ArrowBack" Href="/posts">
+                목록으로
+            </MudButton>
+        </div>
+    }
+</MudContainer>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    
+    private Post? post;
+    private bool isLoading = true;
+    private string htmlContent = ""; // 변환된 HTML을 담을 변수
+
+    protected override async Task OnInitializedAsync()
+    {
+        await PostService.LoadPostsAsync();
+        post = PostService.GetById(Id);
+        
+        if (post != null)
+        {
+            // 1. 마크다운 파이프라인 설정 (고급 기능 활성화)
+            var pipeline = new MarkdownPipelineBuilder()
+                .UseAdvancedExtensions() // 표, 취소선 등 확장 문법 지원
+                .Build();
+
+            // 2. 마크다운 텍스트 -> HTML로 변환
+            htmlContent = Markdown.ToHtml(post.Content, pipeline);
+        }
+
+        isLoading = false;
+    }
+
+    // 3. 화면이 다 그려진 '직후'에 실행되는 함수
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // 화면에 HTML이 뿌려진 다음에 Prism(코드 하이라이팅)을 다시 입혀줘야 색깔이 나옴
+        if (!isLoading && post != null)
+        {
+            await JSRuntime.InvokeVoidAsync("Prism.highlightAll");
+        }
+    }
+}

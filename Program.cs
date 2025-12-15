@@ -16,7 +16,9 @@ namespace GitPagePortfolio
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddMudServices();
+
             builder.Services.AddScoped<PortfolioService>();
+            builder.Services.AddScoped<PostService>();
 
             await builder.Build().RunAsync();
         }
