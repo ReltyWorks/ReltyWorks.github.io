@@ -79,30 +79,30 @@
         <MudPaper Outlined="true" Class="pa-4 mb-8" Style="border: 2px solid #39ff14; background-color: rgba(57, 255, 20, 0.05);">
             <MudStack Spacing="4">
 
-                @foreach (var section in _parsedSections)
+                @foreach (var item in _parsedSections)
                 {
                     <div class="mb-4">
                         @* 1. 섹션 타이틀 및 링크 *@
                         <div class="d-flex align-center mb-2 mt-4">
                             <MudText Typo="Typo.h5" Color="Color.Primary" Style="font-weight:bold;">
-                                @section.DisplayTitle
+                                @item.DisplayTitle
                             </MudText>
 
                             @* TargetId가 유효할 때만 화살표 표시 *@
-                            @if (section.TargetId >= 0)
+                            @if (item.TargetId >= 0)
                             {
-                                <MudLink Href="@($"/portfolio/{section.TargetId}")" Underline="Underline.None" Class="ml-2 hover-scale">
+                                <MudLink Href="@($"/portfolio/{item.TargetId}")" Underline="Underline.None" Class="ml-2 hover-scale">
                                     <MudText Typo="Typo.h5" Color="Color.Primary" Style="cursor:pointer;"> ▷▷▷</MudText>
                                 </MudLink>
                             }
                         </div>
 
                         @* 2. 해당 섹션의 이미지들 뿌리기 *@
-                        @for (int i = 0; i < section.ImgCount; i++)
+                        @for (int i = 0; i < item.ImgCount; i++)
                         {
                             // 전체 인덱스는 startIdx + i
                             // 파일명은 1부터 시작하므로 +1
-                            int fileNum = section.StartImgIdx + i + 1;
+                            int fileNum = item.StartImgIdx + i + 1;
                             string imgPath = $"files/00/{fileNum:D2}.jpg";
 
                             <MudImage Src="@imgPath" Fluid="true" Class="rounded-lg mb-2" Style="width: 100%; display: block;" />
@@ -138,7 +138,7 @@
 
     <MudItem xs="12" md="6">
         <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ CONTACT ]</MudText>
-        <MudList T="string" Clickable="true">
+        <MudList T="string">
             <MudListItem Icon="@Icons.Material.Filled.Email" IconColor="Color.Primary" OnClick="@(() => CopyToClipboard("relty.works@gmail.com"))">
                 relty.works@gmail.com
             </MudListItem>
@@ -165,7 +165,6 @@
 
     protected override void OnInitialized()
     {
-        // 0번(KeyPortfolio) 데이터 가져오기
         var keyPortfolio = PortfolioService.GetById(0);
 
         if (keyPortfolio != null && !string.IsNullOrWhiteSpace(keyPortfolio.Description))
@@ -174,14 +173,11 @@
         }
     }
 
-    // 정규표현식을 사용하여 jpgCount와 pofolLink를 정확하게 추출
     private void ParseDescription(string rawDescription)
     {
         var lines = rawDescription.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
         int currentImgIndex = 0;
 
-        // 패턴: jpgCount(숫자) + pofolLink(숫자)
-        // 예: jpgCount3pofolLink2 -> Group[1]: 3, Group[2]: 2
         var regex = new Regex(@"jpgCount(\d+)pofolLink(\d+)", RegexOptions.IgnoreCase);
 
         for (int i = 0; i < lines.Length; i++)
@@ -191,16 +187,15 @@
 
             if (match.Success)
             {
-                // 정규표현식으로 숫자 추출
-                int count = int.Parse(match.Groups[1].Value); // 이미지 장수
-                int linkId = int.Parse(match.Groups[2].Value); // 연결할 포폴 ID
+                int count = int.Parse(match.Groups[1].Value);
+                int linkId = int.Parse(match.Groups[2].Value);
 
                 string title = (i > 0) ? lines[i - 1].Trim() : "Untitled Section";
 
                 _parsedSections.Add(new SectionInfo
                 {
                     DisplayTitle = title,
-                    TargetId = linkId, // 추출한 ID를 그대로 사용
+                    TargetId = linkId,
                     StartImgIdx = currentImgIndex,
                     ImgCount = count
                 });
