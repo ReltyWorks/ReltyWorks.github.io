@@ -21,7 +21,8 @@ namespace GitPagePortfolio.Services
                 CSV 기반의 다국어 데이터 로직을 설계해 기획 의도를 정확히 구현했습니다.
                 이 과정을 통해 '나를 죽이고 팀의 서포터가 되는 것'이 프로젝트의 완성도를 높이는 가장 확실한 방법임을 깨달았습니다.
                 """,
-                TotalSlides = 20
+                TotalSlides = 20,
+                DriveUrl = "https://drive.google.com/drive/folders/1kwQZhXstcyocTgIkHeKruvGgt2LFHprN"
             },
 
             // [01번 포트폴리오]
@@ -38,7 +39,8 @@ namespace GitPagePortfolio.Services
                 다소 투박하더라도 직접 패킷 시스템을 설계하고 구현한 이 경험은 네트워크의 본질을 이해하고,
                 AI의 코드를 의심하며 검증하는 습관을 기르는 가장 확실한 계기가 되었습니다.
                 """,
-                TotalSlides = 16
+                TotalSlides = 16,
+                DriveUrl = null
             },
             
             // [02번 포트폴리오] ... 계속 추가하면 됨

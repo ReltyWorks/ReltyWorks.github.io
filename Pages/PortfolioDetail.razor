@@ -6,6 +6,42 @@
 
 <PageTitle>@(portfolio?.Title ?? "Loading...")</PageTitle>
 
+@* 홈 화면에 있던 애니메이션 스타일 가져오기 *@
+<style>
+    @@keyframes floating-wobble
+    {
+        0%
+        {
+            transform: scale(1.0) rotate(-1deg) translateY(0px);
+        }
+
+        50%
+        {
+            transform: scale(1.02) rotate(1deg) translateY(-5px);
+        }
+
+        100%
+        {
+            transform: scale(1.0) rotate(-1deg) translateY(0px);
+        }
+    }
+
+    /* 드라이브 버튼 전용 스타일 */
+    .drive-button
+    {
+        transition: all 0.3s ease-in-out;
+        border: 2px solid #39ff14 !important; /* 네온 그린 강제 적용 */
+        background-color: rgba(57, 255, 20, 0.05);
+    }
+
+    .drive-button:hover
+    {
+        box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+        background-color: rgba(57, 255, 20, 0.15);
+        animation: floating-wobble 2s ease-in-out infinite alternate;
+    }
+</style>
+
 <MudContainer MaxWidth="MaxWidth.Large" Class="my-8">
     @if (portfolio == null)
     {
@@ -29,10 +65,29 @@
         <MudPaper Outlined="true" Class="pa-4" Style="border: 2px solid #39ff14; background-color: #0d0d0d;">
 
             <MudStack Spacing="4">
+
+                @* 구글 드라이브 버튼 (링크가 있을 때만 표시) *@
+                @if (!string.IsNullOrEmpty(portfolio.DriveUrl))
+                {
+                    <MudPaper Class="d-flex flex-column align-center justify-center py-6 mb-4 drive-button"
+                              Outlined="true"
+                              Style="cursor:pointer;"
+                              @onclick="GoToDrive">
+                        @* 아이콘을 구글 드라이브(삼각형)로 변경 *@
+                        <MudIcon Icon="@Icons.Custom.Brands.Google" Size="Size.Large" Color="Color.Primary" Style="font-size: 3rem;" />
+                        <MudText Typo="Typo.h6" Color="Color.Primary" Class="mt-2" Style="font-weight:bold;">
+                            PLAY BUILD (Google Drive)
+                        </MudText>
+                        <MudText Typo="Typo.caption" Style="color: #bbb;">
+                            빌드 파일 다운로드 링크
+                        </MudText>
+                    </MudPaper>
+                }
+
+                @* 이미지 슬라이드 *@
                 @for (int i = 1; i <= portfolio.TotalSlides; i++)
                 {
                     int pageNum = i;
-
                     string imgPath = $"files/{portfolio.Id:D2}/{pageNum:D2}.jpg";
 
                     <MudImage Src="@imgPath"
@@ -63,5 +118,15 @@
     {
         // 서비스한테 "몇 번 포트폴리오 데이터 줘!" 라고 요청
         portfolio = PortfolioService.GetById(Id);
+    }
+
+    // 버튼 클릭 시 이동하는 함수
+    private void GoToDrive()
+    {
+        if (!string.IsNullOrEmpty(portfolio?.DriveUrl))
+        {
+            // 새 탭에서 열리도록 true 옵션 사용
+            NavManager.NavigateTo(portfolio.DriveUrl, true);
+        }
     }
 }

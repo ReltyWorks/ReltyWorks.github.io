@@ -17,5 +17,8 @@
         // 5. 썸네일 경로 가져오기 (편의상 1번 이미지를 썸네일로 씀)
         // D2 : 숫자를 00, 01 포맷으로 바꿔줌
         public string ThumbnailPath => $"files/{Id:D2}/01.jpg";
+
+        // 6. 구글 드라이브 링크 (없을 수도 있으니 ? 붙임)
+        public string? DriveUrl { get; set; }
     }
 }
