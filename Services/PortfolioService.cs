@@ -4,8 +4,6 @@ namespace GitPagePortfolio.Services
 {
     public class PortfolioService
     {
-        // 친구가 원한대로 리스트에 객체들을 미리 만들어두는 곳!
-        // 여기에 데이터를 하드코딩해서 관리하자.
         private readonly List<Portfolio> _portfolios = new()
         {
             // [00번 포트폴리오 = key 포트폴리오]
@@ -43,7 +41,38 @@ namespace GitPagePortfolio.Services
                 DriveUrl = null
             },
             
-            // [02번 포트폴리오] ... 계속 추가하면 됨
+            // [02번 포트폴리오]
+            new Portfolio
+            {
+                Id = 2,
+                Title = "BobCatServer",
+                Description = """
+                [ gRPC & HTTP/2를 활용한 비동기 게임 서버 ]
+                이전 프로젝트(ButtonOperator)에서 겪었던 스레드 관리의 비효율을 개선하고자,
+                최신 기술인 gRPC와 Async/Await 비동기 모델을 도입해 성능과 생산성을 동시에 잡았습니다.
+                특히 유니티 엔진과 .NET 라이브러리 간의 호환성 문제를 해결하며,
+                단순한 코딩을 넘어 '외부 라이브러리를 엔진에 통합하고 최적화하는' 실무적인 문제 해결 능력을 길렀습니다.
+                과거의 실패를 기술적 성장의 발판으로 삼은, 가장 애착이 가는 프로젝트입니다.
+                """,
+                TotalSlides = 10,
+                DriveUrl = null
+            },
+            
+            // [03번 포트폴리오] 
+            new Portfolio
+            {
+                Id = 3,
+                Title = "DataBridgeSystem",
+                Description = """
+                [ Pruning Trie 기반의 고성능 검색 미들웨어 ]
+                "1주일 내 MVP 출시"와 "PHP 레거시 연동"이라는 까다로운 제약 속에서,
+                Trie 자료구조를 직접 최적화하여 21만 건의 데이터를 0ms에 검색하도록 구현했습니다.
+                또한 gRPC와 REST API를 동시에 지원하는 하이브리드 아키텍처를 통해 클라이언트의 요구를 완벽히 충족시켰습니다.
+                성능 최적화와 트러블 슈팅 과정을 통해, 기술은 결국 '비즈니스 문제를 해결하는 도구'임을 증명하고자 했습니다.
+                """,
+                TotalSlides = 11,
+                DriveUrl = null
+            },
         };
 
         // 전체 목록을 달라고 할 때 쓰는 함수
