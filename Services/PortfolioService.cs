@@ -12,12 +12,12 @@ namespace GitPagePortfolio.Services
                 Id = 0,
                 Title = "KeyPortfolio",
                 Description = """
-                'ApocalypseMatrix' 포트폴리오 중 발췌
-                jpgCount3pofolLink2
+                'DataBridgeSystem' 포트폴리오 중 발췌
+                jpgCount3pofolLink4
                 'BobCatServer' 포트폴리오 중 발췌
                 jpgCount4pofolLink3
-                'DataBridgeSystem' 포트폴리오 중 발췌
-                jpgCount4pofolLink4
+                'ApocalypseMatrix' 포트폴리오 중 발췌
+                jpgCount5pofolLink2
                 """, // jpgCount = 보여줄 사진 장 수, pofolLink = Id
                 TotalSlides = 11, // jpgCount의 합과 맞아야함!
                 DriveUrl = null
