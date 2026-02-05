@@ -46,7 +46,9 @@
     protected override void OnInitialized()
     {
         // 서비스에서 리스트 메뉴판 가져오기!
-        _portfolios = PortfolioService.GetAll();
+        _portfolios = PortfolioService.GetAll()
+                                      .Where(p => p.Id != 0) // 0번은 키 포폴
+                                      .ToList();
     }
 
     private void GoToDetail(int id)

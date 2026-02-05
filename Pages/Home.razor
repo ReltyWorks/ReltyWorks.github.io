@@ -1,40 +1,49 @@
 ﻿@page "/"
 @using GitPagePortfolio.Models
 @using GitPagePortfolio.Services
+@using System.Text.RegularExpressions
 @inject ISnackbar Snackbar
 @inject IJSRuntime JSRuntime
 @inject NavigationManager NavManager
 @inject PortfolioService PortfolioService
 
 <style>
-    /* 1. 애니메이션 정의 */
-    @@keyframes floating-wobble {
-        0% {
-            transform: scale(1.05) rotate(-3deg) translateX(-5px);
-        }
-
-        50% {
-            transform: scale(1.05) rotate(3deg) translateX(5px);
-        }
-
-        100% {
-            transform: scale(1.05) rotate(-3deg) translateX(-5px);
-        }
+/* 애니메이션 정의 (둥둥 떠다니는 효과) */
+    @@keyframes floating-wobble
+    {
+        0% { transform: scale(1.0) rotate(-1deg) translateY(0px); }
+        50% { transform: scale(1.02) rotate(1deg) translateY(-5px); }
+        100% { transform: scale(1.0) rotate(-1deg) translateY(0px); }
     }
 
-    .github-button {
+    /* 깃허브 버튼 스타일 */
+    .github-button
+    {
         transition: all 0.3s ease-in-out;
     }
 
-        .github-button:hover {
-            box-shadow: 0 0 50px rgba(57, 255, 20, 0.5);
-            background-color: rgba(57, 255, 20, 0.25);
-            animation: floating-wobble 3s ease-in-out infinite alternate;
-        }
+    .github-button:hover
+    {
+        box-shadow: 0 0 50px rgba(57, 255, 20, 0.5);
+        background-color: rgba(57, 255, 20, 0.25);
+        animation: floating-wobble 3s ease-in-out infinite alternate;
+    }
+
+    /* 화살표 링크 호버 효과 */
+    .hover-scale
+    {
+        transition: transform 0.2s;
+    }
+
+    .hover-scale:hover
+    {
+        transform: scale(1.1); /* 마우스 올리면 1.1배 커짐 */
+    }
 </style>
 
 <PageTitle>ReltyWorks - Home</PageTitle>
 
+@* --- [상단 자기소개 영역] --- *@
 <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Spacing="2" Class="my-16">
     <MudText Typo="Typo.h2" Color="Color.Primary" Style="font-weight:bold; text-shadow: 0 0 20px #39ff14;">
         ReltyWorks
@@ -58,56 +67,63 @@
 
 <MudDivider Class="my-12" />
 
+@* --- [KEY PORTFOLIO 영역] --- *@
 <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-8" Style="text-shadow: 0 0 10px #39ff14;">
     [ KEY PORTFOLIO ]
 </MudText>
 
-@if (keyPortfolio != null)
+@if (_parsedSections != null && _parsedSections.Count > 0)
 {
     <MudContainer MaxWidth="MaxWidth.Large">
-        <MudText Typo="Typo.h5" Color="Color.Primary" Align="Align.Center" Class="mb-4" Style="font-weight:bold;">
-            @keyPortfolio.Title
-        </MudText>
-
-        <MudText Typo="Typo.body1" Align="Align.Center" Class="mb-8" Style="color: white; white-space: pre-line;">
-            @keyPortfolio.Description
-        </MudText>
 
         <MudPaper Outlined="true" Class="pa-4 mb-8" Style="border: 2px solid #39ff14; background-color: rgba(57, 255, 20, 0.05);">
             <MudStack Spacing="4">
-                @for (int i = 1; i <= keyPortfolio.TotalSlides; i++)
-                {
-                    int pageNum = i;
-                    // 아까 합의한 경로: files/00/01.jpg
-                    string imgPath = $"files/{keyPortfolio.Id:D2}/{pageNum:D2}.jpg";
 
-                    <MudImage Src="@imgPath"
-                              Fluid="true"
-                              ObjectFit="ObjectFit.Contain"
-                              Class="rounded-lg"
-                              Style="width: 100%; display: block;"
-                              Alt="@($"{keyPortfolio.Title} - Page {pageNum}")"
-                              UserAttributes="@(new Dictionary<string, object> { { "loading", "lazy" } })" />
+                @foreach (var section in _parsedSections)
+                {
+                    <div class="mb-4">
+                        @* 1. 섹션 타이틀 및 링크 *@
+                        <div class="d-flex align-center mb-2 mt-4">
+                            <MudText Typo="Typo.h5" Color="Color.Primary" Style="font-weight:bold;">
+                                @section.DisplayTitle
+                            </MudText>
+
+                            @* TargetId가 유효할 때만 화살표 표시 *@
+                            @if (section.TargetId >= 0)
+                            {
+                                <MudLink Href="@($"/portfolio/{section.TargetId}")" Underline="Underline.None" Class="ml-2 hover-scale">
+                                    <MudText Typo="Typo.h5" Color="Color.Primary" Style="cursor:pointer;"> ▷▷▷</MudText>
+                                </MudLink>
+                            }
+                        </div>
+
+                        @* 2. 해당 섹션의 이미지들 뿌리기 *@
+                        @for (int i = 0; i < section.ImgCount; i++)
+                        {
+                            // 전체 인덱스는 startIdx + i
+                            // 파일명은 1부터 시작하므로 +1
+                            int fileNum = section.StartImgIdx + i + 1;
+                            string imgPath = $"files/00/{fileNum:D2}.jpg";
+
+                            <MudImage Src="@imgPath" Fluid="true" Class="rounded-lg mb-2" Style="width: 100%; display: block;" />
+                        }
+                    </div>
                 }
+
             </MudStack>
         </MudPaper>
 
         <div class="d-flex justify-center my-4">
             <MudButton Variant="Variant.Outlined" Color="Color.Primary" Size="Size.Large" Href="/portfolios">
-                &gt; 다른 프로젝트 보기
+                &gt; 전체 프로젝트 목록 보기
             </MudButton>
         </div>
     </MudContainer>
 }
-else
-{
-    <MudAlert Severity="Severity.Warning" Variant="Variant.Outlined" Class="my-4">
-        표시할 Key Portfolio 데이터(ID: 0)가 없습니다. PortfolioService를 확인해주세요.
-    </MudAlert>
-}
 
 <MudDivider Class="my-12" />
 
+@* --- [하단 링크 영역] --- *@
 <MudGrid Class="mb-16">
     <MudItem xs="12" md="6">
         <MudText Typo="Typo.h4" Color="Color.Primary" Align="Align.Center" Class="mb-4">[ GITHUB ]</MudText>
@@ -137,12 +153,61 @@ else
 </MudGrid>
 
 @code {
-    private Portfolio? keyPortfolio;
+    private class SectionInfo
+    {
+        public string DisplayTitle { get; set; } = "";
+        public int TargetId { get; set; } = -1;
+        public int StartImgIdx { get; set; }
+        public int ImgCount { get; set; }
+    }
+
+    private List<SectionInfo> _parsedSections = new();
 
     protected override void OnInitialized()
     {
-        // 0번 포트폴리오를 'Key Portfolio'로 가져옴
-        keyPortfolio = PortfolioService.GetById(0);
+        // 0번(KeyPortfolio) 데이터 가져오기
+        var keyPortfolio = PortfolioService.GetById(0);
+
+        if (keyPortfolio != null && !string.IsNullOrWhiteSpace(keyPortfolio.Description))
+        {
+            ParseDescription(keyPortfolio.Description);
+        }
+    }
+
+    // 정규표현식을 사용하여 jpgCount와 pofolLink를 정확하게 추출
+    private void ParseDescription(string rawDescription)
+    {
+        var lines = rawDescription.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+        int currentImgIndex = 0;
+
+        // 패턴: jpgCount(숫자) + pofolLink(숫자)
+        // 예: jpgCount3pofolLink2 -> Group[1]: 3, Group[2]: 2
+        var regex = new Regex(@"jpgCount(\d+)pofolLink(\d+)", RegexOptions.IgnoreCase);
+
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i].Trim();
+            var match = regex.Match(line);
+
+            if (match.Success)
+            {
+                // 정규표현식으로 숫자 추출
+                int count = int.Parse(match.Groups[1].Value); // 이미지 장수
+                int linkId = int.Parse(match.Groups[2].Value); // 연결할 포폴 ID
+
+                string title = (i > 0) ? lines[i - 1].Trim() : "Untitled Section";
+
+                _parsedSections.Add(new SectionInfo
+                {
+                    DisplayTitle = title,
+                    TargetId = linkId, // 추출한 ID를 그대로 사용
+                    StartImgIdx = currentImgIndex,
+                    ImgCount = count
+                });
+
+                currentImgIndex += count;
+            }
+        }
     }
 
     private async Task CopyToClipboard(string text)
@@ -150,7 +215,7 @@ else
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", text);
         Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomCenter;
         Snackbar.Configuration.ShowCloseIcon = false;
-        Snackbar.Add($"CopyToClipboard", Severity.Success, config =>
+        Snackbar.Add($"Copied to clipboard!", Severity.Success, config =>
         {
             config.HideTransitionDuration = 200;
             config.ShowTransitionDuration = 200;

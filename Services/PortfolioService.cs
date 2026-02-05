@@ -6,21 +6,21 @@ namespace GitPagePortfolio.Services
     {
         private readonly List<Portfolio> _portfolios = new()
         {
-            // [00번 포트폴리오 = key 포트폴리오]
+            // [key 포트폴리오]
             new Portfolio
             {
                 Id = 0,
-                Title = "ApocalypseMatrix",
+                Title = "KeyPortfolio",
                 Description = """
-                [ 리플렉션 및 최적화 설계를 활용한 AR 번역 ]
-                "회사 생활은 곧 팀 프로젝트"라는 멘토의 조언을 받아들여,
-                개인의 기술적 욕심을 버리고 철저히 팀원들이 편하게 작업할 수 있는 환경을 만드는 데 집중했습니다.
-                PM이자 시스템 아키텍트로서 Reflection을 활용한 자동 바인딩 시스템(DI)을 구축해 팀원의 반복 작업을 줄이고,
-                CSV 기반의 다국어 데이터 로직을 설계해 기획 의도를 정확히 구현했습니다.
-                이 과정을 통해 '나를 죽이고 팀의 서포터가 되는 것'이 프로젝트의 완성도를 높이는 가장 확실한 방법임을 깨달았습니다.
-                """,
-                TotalSlides = 20,
-                DriveUrl = "https://drive.google.com/drive/folders/1kwQZhXstcyocTgIkHeKruvGgt2LFHprN"
+                'ApocalypseMatrix' 포트폴리오 중 발췌
+                jpgCount3pofolLink2
+                'BobCatServer' 포트폴리오 중 발췌
+                jpgCount4pofolLink3
+                'DataBridgeSystem' 포트폴리오 중 발췌
+                jpgCount4pofolLink4
+                """, // jpgCount = 보여줄 사진 장 수, pofolLink = Id
+                TotalSlides = 11, // jpgCount의 합과 맞아야함!
+                DriveUrl = null
             },
 
             // [01번 포트폴리오]
@@ -40,11 +40,28 @@ namespace GitPagePortfolio.Services
                 TotalSlides = 16,
                 DriveUrl = null
             },
-            
+
             // [02번 포트폴리오]
             new Portfolio
             {
                 Id = 2,
+                Title = "ApocalypseMatrix",
+                Description = """
+                [ 리플렉션 및 최적화 설계를 활용한 AR 번역 ]
+                "회사 생활은 곧 팀 프로젝트"라는 멘토의 조언을 받아들여,
+                개인의 기술적 욕심을 버리고 철저히 팀원들이 편하게 작업할 수 있는 환경을 만드는 데 집중했습니다.
+                PM이자 시스템 아키텍트로서 Reflection을 활용한 자동 바인딩 시스템(DI)을 구축해 팀원의 반복 작업을 줄이고,
+                CSV 기반의 다국어 데이터 로직을 설계해 기획 의도를 정확히 구현했습니다.
+                이 과정을 통해 '나를 죽이고 팀의 서포터가 되는 것'이 프로젝트의 완성도를 높이는 가장 확실한 방법임을 깨달았습니다.
+                """,
+                TotalSlides = 20,
+                DriveUrl = "https://drive.google.com/drive/folders/1kwQZhXstcyocTgIkHeKruvGgt2LFHprN"
+            },
+            
+            // [03번 포트폴리오]
+            new Portfolio
+            {
+                Id = 3,
                 Title = "BobCatServer",
                 Description = """
                 [ gRPC & HTTP/2를 활용한 비동기 게임 서버 ]
@@ -58,10 +75,10 @@ namespace GitPagePortfolio.Services
                 DriveUrl = null
             },
             
-            // [03번 포트폴리오] 
+            // [04번 포트폴리오] 
             new Portfolio
             {
-                Id = 3,
+                Id = 4,
                 Title = "DataBridgeSystem",
                 Description = """
                 [ Pruning Trie 기반의 고성능 검색 미들웨어 ]
