@@ -38,7 +38,7 @@ namespace GitPagePortfolio.Services
                 AI의 코드를 의심하며 검증하는 습관을 기르는 가장 확실한 계기가 되었습니다.
                 """,
                 TotalSlides = 16,
-                DriveUrl = null
+                DriveUrl = "https://drive.google.com/drive/folders/1kwQZhXstcyocTgIkHeKruvGgt2LFHprN"
             },
 
             // [02번 포트폴리오]
@@ -55,7 +55,7 @@ namespace GitPagePortfolio.Services
                 이 과정을 통해 '나를 죽이고 팀의 서포터가 되는 것'이 프로젝트의 완성도를 높이는 가장 확실한 방법임을 깨달았습니다.
                 """,
                 TotalSlides = 20,
-                DriveUrl = "https://drive.google.com/drive/folders/1kwQZhXstcyocTgIkHeKruvGgt2LFHprN"
+                DriveUrl = "https://drive.google.com/drive/folders/1zVKgcek1vOwtWXQaqhgd963yeE46hk3t"
             },
             
             // [03번 포트폴리오]
@@ -72,7 +72,7 @@ namespace GitPagePortfolio.Services
                 과거의 실패를 기술적 성장의 발판으로 삼은, 가장 애착이 가는 프로젝트입니다.
                 """,
                 TotalSlides = 10,
-                DriveUrl = null
+                DriveUrl = "https://drive.google.com/drive/folders/1By4N7q3uv4pbRCQ6llY8WdYhLSv6jK3N"
             },
             
             // [04번 포트폴리오] 
@@ -88,7 +88,7 @@ namespace GitPagePortfolio.Services
                 성능 최적화와 트러블 슈팅 과정을 통해, 기술은 결국 '비즈니스 문제를 해결하는 도구'임을 증명하고자 했습니다.
                 """,
                 TotalSlides = 11,
-                DriveUrl = null
+                DriveUrl = "https://drive.google.com/drive/folders/1lLdpWwbUO58OmJwLKNaaFK676V_jBo5a"
             },
         };
 
